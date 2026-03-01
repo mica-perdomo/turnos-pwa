@@ -14,16 +14,16 @@ export const SHIFT_TIMES: Record<number, string> = {
 
 export const SHIFT_COLORS = {
   bg: {
-    0: 'bg-zinc-400/15 dark:bg-zinc-500/25',
-    1: 'bg-red-500/20 dark:bg-red-500/20',
-    2: 'bg-green-500/20 dark:bg-green-500/20',
-    3: 'bg-blue-500/20 dark:bg-blue-500/20',
+    0: 'bg-zinc-400/15 dark:bg-zinc-500/35',
+    1: 'bg-red-500/20 dark:bg-red-500/30',
+    2: 'bg-green-500/20 dark:bg-green-500/30',
+    3: 'bg-blue-500/20 dark:bg-blue-500/30',
   } as Record<number, string>,
   bgToday: {
-    0: 'bg-zinc-400/30 dark:bg-zinc-500/40',
-    1: 'bg-red-500/35 dark:bg-red-500/35',
-    2: 'bg-green-500/35 dark:bg-green-500/35',
-    3: 'bg-blue-500/35 dark:bg-blue-500/35',
+    0: 'bg-zinc-400/30 dark:bg-zinc-500/50',
+    1: 'bg-red-500/35 dark:bg-red-500/45',
+    2: 'bg-green-500/35 dark:bg-green-500/45',
+    3: 'bg-blue-500/35 dark:bg-blue-500/45',
   } as Record<number, string>,
   borderToday: {
     0: 'border-zinc-500 dark:border-zinc-300',
