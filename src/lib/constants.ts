@@ -14,19 +14,19 @@ export const SHIFT_TIMES: Record<number, string> = {
 
 export const SHIFT_COLORS = {
   bg: {
-    0: 'bg-gray-500/20 dark:bg-gray-600/20',
+    0: 'bg-zinc-400/15 dark:bg-zinc-500/25',
     1: 'bg-red-500/20 dark:bg-red-500/20',
     2: 'bg-green-500/20 dark:bg-green-500/20',
     3: 'bg-blue-500/20 dark:bg-blue-500/20',
   } as Record<number, string>,
   text: {
-    0: 'text-gray-500 dark:text-gray-400',
+    0: 'text-zinc-500 dark:text-zinc-300',
     1: 'text-red-500 dark:text-red-400',
     2: 'text-green-500 dark:text-green-400',
     3: 'text-blue-500 dark:text-blue-400',
   } as Record<number, string>,
   dot: {
-    0: 'bg-gray-400',
+    0: 'bg-zinc-400',
     1: 'bg-red-500',
     2: 'bg-green-500',
     3: 'bg-blue-500',

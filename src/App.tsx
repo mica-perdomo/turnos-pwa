@@ -6,6 +6,7 @@ import { useSwipe } from './hooks/useSwipe'
 import { useTheme } from './hooks/useTheme'
 import { useNotifications } from './hooks/useNotifications'
 import { useInstallPrompt } from './hooks/useInstallPrompt'
+import { useZoom } from './hooks/useZoom'
 
 import { MonthNavigator } from './components/calendar/MonthNavigator'
 import { CalendarGrid } from './components/calendar/CalendarGrid'
@@ -14,8 +15,8 @@ import { MonthSummary } from './components/info/MonthSummary'
 import { UpcomingHolidays } from './components/info/UpcomingHolidays'
 import { DayDetail } from './components/info/DayDetail'
 import { SettingsBar } from './components/settings/SettingsBar'
-import { InstallBanner } from './components/ui/InstallBanner'
 import { Onboarding } from './components/ui/Onboarding'
+import { InstallGuide } from './components/ui/InstallGuide'
 import { Settings, CalendarDays } from 'lucide-react'
 
 export default function App() {
@@ -26,7 +27,26 @@ export default function App() {
   const { theme, setTheme } = useTheme()
   const notifications = useNotifications()
   const installPrompt = useInstallPrompt()
+  const zoom = useZoom()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
+
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  const [installGuideSkipped, setInstallGuideSkipped] = useState(() => {
+    try { return localStorage.getItem('turnos_install_guide_done') === '1' } catch { return false }
+  })
+  const showInstallGuide = needsOnboarding && !isStandalone && !installGuideSkipped
+
+  const handleInstallSkip = useCallback(() => {
+    setInstallGuideSkipped(true)
+    localStorage.setItem('turnos_install_guide_done', '1')
+  }, [])
+
+  const handleInstallDirect = useCallback(async () => {
+    await installPrompt.install()
+    handleInstallSkip()
+  }, [installPrompt, handleInstallSkip])
+
   const [showSettings, setShowSettings] = useState(false)
   const [selectedDay, setSelectedDay] = useState<CalendarDay | null>(null)
   const [showBanners, setShowBanners] = useState(() => {
@@ -43,18 +63,33 @@ export default function App() {
   const now = new Date()
   const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
 
+  if (showInstallGuide) {
+    return (
+      <InstallGuide
+        canPrompt={installPrompt.canPrompt}
+        isIOS={isIOS}
+        onInstall={handleInstallDirect}
+        onSkip={handleInstallSkip}
+      />
+    )
+  }
+
   if (needsOnboarding) {
     return <Onboarding onSelect={setProduction} />
   }
 
   return (
-    <div
-      className="min-h-screen bg-white dark:bg-slate-900 transition-colors"
-      {...swipeHandlers}
-    >
-      <div className="mx-auto max-w-md px-3 pb-8">
+    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors overflow-x-hidden">
+      <div
+        className="mx-auto max-w-md px-4 pb-8 origin-top"
+        style={{
+          zoom: zoom.zoom / 100,
+          width: `${10000 / zoom.zoom}%`,
+        }}
+        {...swipeHandlers}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between pt-[env(safe-area-inset-top,16px)] pb-2">
+        <div className="flex items-center justify-between pt-[max(env(safe-area-inset-top,0px),24px)] pb-4">
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl font-bold">Turnos</h1>
             <span className="px-3 py-1 rounded-full bg-violet-600 text-white text-xs">
@@ -73,7 +108,7 @@ export default function App() {
 
         {/* Settings panel */}
         {showSettings && (
-          <div className="mb-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+          <div className="mb-5 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
             <SettingsBar
               production={production}
               onProductionChange={setProduction}
@@ -82,23 +117,16 @@ export default function App() {
               showBanners={showBanners}
               onShowBannersChange={handleShowBanners}
               notifications={notifications}
+              zoom={zoom.zoom}
+              zoomSteps={zoom.steps}
+              onZoomChange={zoom.setZoom}
             />
           </div>
         )}
 
-        {/* Install banner */}
-        {installPrompt.visible && (
-          <InstallBanner
-            canPrompt={installPrompt.canPrompt}
-            showIOSGuide={installPrompt.showIOSGuide}
-            onInstall={installPrompt.install}
-            onDismiss={installPrompt.dismiss}
-          />
-        )}
-
         {/* Today + Tomorrow banners */}
         {showBanners && (
-          <div className="mb-4">
+          <div className="mb-5">
             <TodayBanner
               today={todayInfo}
               tomorrow={tomorrowInfo}

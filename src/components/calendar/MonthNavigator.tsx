@@ -17,14 +17,14 @@ export function MonthNavigator({ year, month, onPrev, onNext, onGoTo }: Props) {
 
   return (
     <>
-      <div className="flex items-center justify-between px-2 py-3">
+      <div className="flex items-center justify-between py-3">
         <button
           type="button"
           onClick={onPrev}
-          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-600 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
           aria-label="Mes anterior"
         >
-          <ChevronLeft size={24} />
+          <ChevronLeft size={20} />
         </button>
 
         <button
@@ -40,10 +40,10 @@ export function MonthNavigator({ year, month, onPrev, onNext, onGoTo }: Props) {
         <button
           type="button"
           onClick={onNext}
-          className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 active:bg-slate-300 dark:active:bg-slate-600 transition-colors min-w-[44px] min-h-[44px] flex items-center justify-center"
+          className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
           aria-label="Mes siguiente"
         >
-          <ChevronRight size={24} />
+          <ChevronRight size={20} />
         </button>
       </div>
 

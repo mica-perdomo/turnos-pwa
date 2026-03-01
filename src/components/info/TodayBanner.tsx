@@ -8,52 +8,62 @@ interface Props {
   production: number
 }
 
-export function TodayBanner({ today, tomorrow, production }: Props) {
+function Row({
+  icon: Icon,
+  label,
+  day,
+  production,
+  showRelief,
+}: {
+  icon: typeof Clock
+  label: string
+  day: DayInfo
+  production: number
+  showRelief: boolean
+}) {
   return (
-    <div
-      className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700"
-    >
-      {/* Today — single row */}
-      <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[today.shift]}`}>
-        <Clock size={16} className={SHIFT_COLORS.text[today.shift]} />
-        <span className="text-xs text-slate-500 dark:text-slate-400 uppercase">Hoy</span>
-        <span className={`font-bold ${SHIFT_COLORS.text[today.shift]}`}>
-          {SHIFT_LABELS[today.shift]}
+    <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[day.shift]}`}>
+      <Icon size={16} className={`${SHIFT_COLORS.text[day.shift]} shrink-0`} />
+      <span className="w-14 text-xs text-slate-500 dark:text-slate-400 uppercase leading-none">{label}</span>
+      <div className="flex items-baseline gap-2">
+        <span className={`font-bold ${SHIFT_COLORS.text[day.shift]}`}>
+          {SHIFT_LABELS[day.shift]}
         </span>
-        {SHIFT_TIMES[today.shift] && (
-          <span className="text-xs text-slate-500 dark:text-slate-400">
-            {SHIFT_TIMES[today.shift]}
+        {SHIFT_TIMES[day.shift] && (
+          <span className={`text-xs font-semibold ${SHIFT_COLORS.text[day.shift]}`}>
+            {SHIFT_TIMES[day.shift]}
           </span>
         )}
-        <span className="ml-auto text-[10px] text-slate-400 dark:text-slate-500">
-          P{production}
-          {today.shift !== 0 && today.relief.relievesProduction > 0 &&
-            ` · releva P${today.relief.relievesProduction}`}
-        </span>
-        {today.holiday && (
+      </div>
+      <div className="ml-auto flex items-center gap-1.5 shrink-0">
+        {showRelief && (
+          <>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-medium leading-none">
+              P{production}
+            </span>
+            {day.shift !== 0 && day.relief.relievesProduction > 0 && (
+              <>
+                <span className="text-[10px] text-slate-400 dark:text-slate-500 leading-none">→</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-medium leading-none">
+                  P{day.relief.relievesProduction}
+                </span>
+              </>
+            )}
+          </>
+        )}
+        {day.holiday && (
           <AlertTriangle size={12} className="text-amber-400 shrink-0" />
         )}
       </div>
+    </div>
+  )
+}
 
-      {/* Tomorrow — single row */}
-      <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[tomorrow.shift]}`}>
-        <Sunrise size={16} className={SHIFT_COLORS.text[tomorrow.shift]} />
-        <span className="text-xs text-slate-500 dark:text-slate-400 uppercase">Mañana</span>
-        <span className={`font-bold ${SHIFT_COLORS.text[tomorrow.shift]}`}>
-          {SHIFT_LABELS[tomorrow.shift]}
-        </span>
-        {SHIFT_TIMES[tomorrow.shift] && (
-          <span className="text-xs text-slate-500 dark:text-slate-400">
-            {SHIFT_TIMES[tomorrow.shift]}
-          </span>
-        )}
-        {tomorrow.holiday && (
-          <div className="ml-auto flex items-center gap-1">
-            <AlertTriangle size={12} className="text-amber-400" />
-            <span className="text-[10px] text-amber-400 font-medium">{tomorrow.holiday.name}</span>
-          </div>
-        )}
-      </div>
+export function TodayBanner({ today, tomorrow, production }: Props) {
+  return (
+    <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700">
+      <Row icon={Clock} label="Hoy" day={today} production={production} showRelief={true} />
+      <Row icon={Sunrise} label="Mañana" day={tomorrow} production={production} showRelief={false} />
     </div>
   )
 }

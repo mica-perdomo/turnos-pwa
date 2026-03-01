@@ -1,8 +1,7 @@
-import { useState } from 'react'
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
 import { NotificationSettings } from './NotificationSettings'
-import { Bell, Send, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Minus, Plus } from 'lucide-react'
 
 interface Props {
   production: number
@@ -11,12 +10,14 @@ interface Props {
   onThemeChange: (t: 'dark' | 'light' | 'system') => void
   showBanners: boolean
   onShowBannersChange: (v: boolean) => void
+  zoom: number
+  zoomSteps: number[]
+  onZoomChange: (v: number) => void
   notifications: {
     enabled: boolean
     supported: boolean
     permission: NotificationPermission
     toggle: () => void
-    sendTest: (production: number) => Promise<{ title: string; body: string }>
   }
 }
 
@@ -35,16 +36,11 @@ export function SettingsBar({
   onThemeChange,
   showBanners,
   onShowBannersChange,
+  zoom,
+  zoomSteps,
+  onZoomChange,
   notifications,
 }: Props) {
-  const [preview, setPreview] = useState<{ title: string; body: string } | null>(null)
-
-  const handleTest = async () => {
-    const result = await notifications.sendTest(production)
-    setPreview(result)
-    setTimeout(() => setPreview(null), 4000)
-  }
-
   return (
     <div className="space-y-4">
       {/* Production */}
@@ -74,41 +70,48 @@ export function SettingsBar({
         </div>
       </div>
 
-      {/* Notifications */}
+      {/* Zoom */}
       <div className="space-y-1.5">
-        <SectionLabel>Notificaciones</SectionLabel>
+        <SectionLabel>Tamaño</SectionLabel>
         <div className="flex items-center gap-2">
-          <NotificationSettings
-            enabled={notifications.enabled}
-            supported={notifications.supported}
-            permission={notifications.permission}
-            onToggle={notifications.toggle}
-          />
           <button
             type="button"
-            onClick={handleTest}
-            className="flex items-center gap-1.5 px-3 min-h-[44px] rounded-lg text-sm font-medium bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+            disabled={zoom <= zoomSteps[0]}
+            onClick={() => {
+              const idx = zoomSteps.indexOf(zoom)
+              if (idx > 0) onZoomChange(zoomSteps[idx - 1])
+            }}
+            className="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-30 flex items-center justify-center transition-colors"
+            aria-label="Reducir tamaño"
           >
-            <Send size={14} />
-            Probar
+            <Minus size={16} />
+          </button>
+          <span className="text-sm font-medium w-12 text-center">{zoom}%</span>
+          <button
+            type="button"
+            disabled={zoom >= zoomSteps[zoomSteps.length - 1]}
+            onClick={() => {
+              const idx = zoomSteps.indexOf(zoom)
+              if (idx < zoomSteps.length - 1) onZoomChange(zoomSteps[idx + 1])
+            }}
+            className="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-30 flex items-center justify-center transition-colors"
+            aria-label="Aumentar tamaño"
+          >
+            <Plus size={16} />
           </button>
         </div>
       </div>
 
-      {/* In-app notification preview */}
-      {preview && (
-        <div className="flex items-start gap-3 rounded-lg bg-indigo-600/10 dark:bg-indigo-500/20 border border-indigo-500/30 p-3 animate-slide-up">
-          <Bell size={18} className="text-indigo-500 mt-0.5 shrink-0" />
-          <div>
-            <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
-              {preview.title}
-            </div>
-            <div className="text-sm text-slate-700 dark:text-slate-300 whitespace-pre-line">
-              {preview.body}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Notifications */}
+      <div className="space-y-1.5">
+        <SectionLabel>Notificaciones</SectionLabel>
+        <NotificationSettings
+          enabled={notifications.enabled}
+          supported={notifications.supported}
+          permission={notifications.permission}
+          onToggle={notifications.toggle}
+        />
+      </div>
     </div>
   )
 }
