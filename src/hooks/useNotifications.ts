@@ -58,22 +58,20 @@ export function useNotifications() {
   const sendTest = useCallback(async (production: number) => {
     const { title, body } = buildTestMessage(production)
 
-    // Try native notification
+    // Also try native notification in the background
     if (supported && Notification.permission === 'granted') {
-      try {
-        const reg = await navigator.serviceWorker.ready
-        await reg.showNotification(title, {
+      navigator.serviceWorker.ready.then((reg) =>
+        reg.showNotification(title, {
           body,
           icon: '/turnos-pwa/icons/icon-192.png',
           badge: '/turnos-pwa/icons/icon-192.png',
           tag: 'turno-test',
-        })
-        return { sent: true as const }
-      } catch { /* fall through to preview */ }
+        }),
+      ).catch(() => {})
     }
 
-    // Fallback: return the message for in-app display
-    return { sent: false as const, title, body }
+    // Always return the message for in-app preview
+    return { title, body }
   }, [supported, buildTestMessage])
 
   return { enabled, permission, supported, toggle, sendTest } as const

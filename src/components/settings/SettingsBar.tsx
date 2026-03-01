@@ -14,7 +14,7 @@ interface Props {
     supported: boolean
     permission: NotificationPermission
     toggle: () => void
-    sendTest: (production: number) => Promise<{ sent: true } | { sent: false; title: string; body: string }>
+    sendTest: (production: number) => Promise<{ title: string; body: string }>
   }
 }
 
@@ -29,12 +29,8 @@ export function SettingsBar({
 
   const handleTest = async () => {
     const result = await notifications.sendTest(production)
-    if (result.sent) {
-      setPreview(null)
-    } else {
-      setPreview({ title: result.title, body: result.body })
-      setTimeout(() => setPreview(null), 4000)
-    }
+    setPreview(result)
+    setTimeout(() => setPreview(null), 4000)
   }
 
   return (
