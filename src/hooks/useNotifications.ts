@@ -35,13 +35,7 @@ export function useNotifications() {
     }
   }, [enabled, requestPermission])
 
-  const sendTest = useCallback(async (production: number) => {
-    if (!supported) return
-    if (Notification.permission !== 'granted') {
-      const granted = await requestPermission()
-      if (!granted) return
-    }
-
+  const buildTestMessage = useCallback((production: number) => {
     const tomorrow = new Date()
     tomorrow.setDate(tomorrow.getDate() + 1)
     const shift = getShift(tomorrow, production)
@@ -51,21 +45,36 @@ export function useNotifications() {
         h.date.getDate() === tomorrow.getDate(),
     )
 
+    const title = 'Turno de mañana'
     let body = `${SHIFT_LABELS[shift]}`
     if (SHIFT_TIMES[shift]) body += ` (${SHIFT_TIMES[shift]})`
     if (shift === 0) body += ' — Descansás'
     if (holidays.length > 0) {
       body += `\n🎉 ${holidays.map((h) => h.name).join(', ')}`
     }
+    return { title, body }
+  }, [])
 
-    const reg = await navigator.serviceWorker.ready
-    await reg.showNotification('Turno de mañana', {
-      body,
-      icon: '/turnos-pwa/icons/icon-192.png',
-      badge: '/turnos-pwa/icons/icon-192.png',
-      tag: 'turno-test',
-    })
-  }, [supported, requestPermission])
+  const sendTest = useCallback(async (production: number) => {
+    const { title, body } = buildTestMessage(production)
+
+    // Try native notification
+    if (supported && Notification.permission === 'granted') {
+      try {
+        const reg = await navigator.serviceWorker.ready
+        await reg.showNotification(title, {
+          body,
+          icon: '/turnos-pwa/icons/icon-192.png',
+          badge: '/turnos-pwa/icons/icon-192.png',
+          tag: 'turno-test',
+        })
+        return { sent: true as const }
+      } catch { /* fall through to preview */ }
+    }
+
+    // Fallback: return the message for in-app display
+    return { sent: false as const, title, body }
+  }, [supported, buildTestMessage])
 
   return { enabled, permission, supported, toggle, sendTest } as const
 }
