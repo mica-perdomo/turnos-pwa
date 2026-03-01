@@ -66,15 +66,15 @@ export function DayDetail({ day, production, onClose }: Props) {
         </div>
 
         {/* Current production shift */}
-        <div className={`rounded-lg p-3 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+        <div className={`rounded-xl p-4 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
+          <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">
             Producción {production}
           </div>
-          <div className={`text-lg font-bold ${SHIFT_COLORS.text[day.shift]}`}>
+          <div className={`text-2xl font-bold ${SHIFT_COLORS.text[day.shift]}`}>
             {SHIFT_LABELS[day.shift]}
           </div>
           {SHIFT_TIMES[day.shift] && (
-            <div className="text-sm text-slate-600 dark:text-slate-300">
+            <div className={`text-lg font-semibold ${SHIFT_COLORS.text[day.shift]} opacity-80`}>
               {SHIFT_TIMES[day.shift]}
             </div>
           )}
