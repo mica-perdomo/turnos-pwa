@@ -21,7 +21,7 @@ export function DayCell({ day, selected, onSelect, hasNote }: Props) {
         min-h-11 min-w-11 rounded-lg text-sm font-medium
         transition-all duration-150
         ${isOtherMonth ? 'opacity-30' : ''}
-        ${day.isToday ? 'today-pulse ring-2 ring-indigo-500 border-2 border-indigo-500' : hasHoliday ? 'border-2 border-amber-400' : 'border-2 border-transparent'}
+        ${day.isToday ? 'today-pulse ring-2 ring-indigo-500 border-2 border-indigo-500/50 dark:border-indigo-400/50' : hasHoliday ? 'border-2 border-amber-400' : 'border-2 border-transparent'}
         ${selected ? 'ring-2 ring-white/60 dark:ring-white/40' : ''}
         ${SHIFT_COLORS.bg[day.shift]}
       `}
