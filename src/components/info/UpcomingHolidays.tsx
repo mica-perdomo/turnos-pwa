@@ -57,7 +57,7 @@ export function UpcomingHolidays({ production }: Props) {
               <span
                 className={`text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ${SHIFT_COLORS.bg[shift]} ${SHIFT_COLORS.text[shift]}`}
               >
-                {shift === 0 ? 'Franco' : `${shift}er`}
+                {shift === 0 ? 'Franco' : shift === 2 ? '2do' : `${shift}er`}
               </span>
             </div>
           )
