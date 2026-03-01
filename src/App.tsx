@@ -19,6 +19,14 @@ import { Onboarding } from './components/ui/Onboarding'
 import { InstallGuide } from './components/ui/InstallGuide'
 import { Settings, CalendarDays, CheckCircle } from 'lucide-react'
 import { PROD_COLORS } from './lib/constants'
+import { getItem, setItem } from './lib/storage'
+
+function formatDateKey(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
 
 export default function App() {
   const { production, setProduction, needsOnboarding } = useProduction()
@@ -58,6 +66,20 @@ export default function App() {
     await installPrompt.install()
     handleInstallSkip()
   }, [installPrompt, handleInstallSkip])
+
+  const [notes, setNotes] = useState<Record<string, string>>(() => getItem<Record<string, string>>('notes', {}))
+  const handleNoteChange = useCallback((dateKey: string, text: string) => {
+    setNotes(prev => {
+      const next = { ...prev }
+      if (text.trim()) {
+        next[dateKey] = text
+      } else {
+        delete next[dateKey]
+      }
+      setItem('notes', next)
+      return next
+    })
+  }, [])
 
   const [showSettings, setShowSettings] = useState(false)
   const [selectedDay, setSelectedDay] = useState<CalendarDay | null>(null)
@@ -182,6 +204,7 @@ export default function App() {
           onSlideEnd={clearSlide}
           onDaySelect={setSelectedDay}
           selectedDay={selectedDay}
+          notes={notes}
         />
 
         {/* Calendar legend (always visible) */}
@@ -216,6 +239,8 @@ export default function App() {
           day={selectedDay}
           production={production}
           onClose={() => setSelectedDay(null)}
+          note={notes[formatDateKey(selectedDay.date)] ?? ''}
+          onNoteChange={(text) => handleNoteChange(formatDateKey(selectedDay.date), text)}
         />
       )}
 

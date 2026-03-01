@@ -4,15 +4,23 @@ import type { SlideDirection } from '../../hooks/useCalendarMonth'
 import { CalendarHeader } from './CalendarHeader'
 import { DayCell } from './DayCell'
 
+function formatDateKey(date: Date): string {
+  const y = date.getFullYear()
+  const m = String(date.getMonth() + 1).padStart(2, '0')
+  const d = String(date.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
 interface Props {
   grid: CalendarDay[][]
   slideDir: SlideDirection
   onSlideEnd: () => void
   onDaySelect: (day: CalendarDay | null) => void
   selectedDay: CalendarDay | null
+  notes: Record<string, string>
 }
 
-export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selectedDay }: Props) {
+export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selectedDay, notes }: Props) {
   const [animClass, setAnimClass] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -60,6 +68,7 @@ export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selected
               day.date.getTime() === selectedDay.date.getTime()
             }
             onSelect={onDaySelect}
+            hasNote={!!notes[formatDateKey(day.date)]}
           />
         ))}
       </div>

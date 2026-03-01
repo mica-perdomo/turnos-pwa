@@ -9,6 +9,8 @@ interface Props {
   day: CalendarDay
   production: number
   onClose: () => void
+  note: string
+  onNoteChange: (text: string) => void
 }
 
 const DOW_NAMES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
@@ -17,7 +19,7 @@ const MONTH_NAMES = [
   'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre',
 ]
 
-export function DayDetail({ day, production, onClose }: Props) {
+export function DayDetail({ day, production, onClose, note, onNoteChange }: Props) {
   const relief = getRelief(day.date, production)
   const allShifts = getAllShifts(day.date)
   const dow = day.date.getDay()
@@ -181,6 +183,29 @@ export function DayDetail({ day, production, onClose }: Props) {
             ))}
           </div>
         )}
+
+        {/* Personal note */}
+        <div className="mt-4 pt-3 border-t border-neutral-200 dark:border-neutral-700">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm font-medium text-neutral-700 dark:text-neutral-300">Notas</span>
+            {note.trim() && (
+              <button
+                type="button"
+                onClick={() => onNoteChange('')}
+                className="text-xs text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 transition-colors"
+              >
+                Borrar
+              </button>
+            )}
+          </div>
+          <textarea
+            className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-700 p-3 text-sm text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 resize-none outline-none focus:ring-2 focus:ring-indigo-500/50"
+            rows={2}
+            placeholder="Agregar nota..."
+            value={note}
+            onChange={(e) => onNoteChange(e.target.value)}
+          />
+        </div>
       </div>
     </div>
   )
