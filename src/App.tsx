@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useProduction } from './hooks/useProduction'
 import { useCalendarMonth } from './hooks/useCalendarMonth'
-import { useShiftData } from './hooks/useShiftData'
+import { useShiftData, type CalendarDay } from './hooks/useShiftData'
 import { useSwipe } from './hooks/useSwipe'
 import { useTheme } from './hooks/useTheme'
 import { useNotifications } from './hooks/useNotifications'
@@ -12,12 +12,14 @@ import { CalendarGrid } from './components/calendar/CalendarGrid'
 import { TodayBanner } from './components/info/TodayBanner'
 import { MonthSummary } from './components/info/MonthSummary'
 import { UpcomingHolidays } from './components/info/UpcomingHolidays'
+import { DayDetail } from './components/info/DayDetail'
 import { SettingsBar } from './components/settings/SettingsBar'
 import { InstallBanner } from './components/ui/InstallBanner'
-import { Settings } from 'lucide-react'
+import { Onboarding } from './components/ui/Onboarding'
+import { Settings, CalendarDays } from 'lucide-react'
 
 export default function App() {
-  const { production, setProduction } = useProduction()
+  const { production, setProduction, needsOnboarding } = useProduction()
   const { year, month, prevMonth, nextMonth, goToToday, goTo, slideDir, clearSlide } =
     useCalendarMonth()
   const { grid, todayInfo, tomorrowInfo, monthSummary } = useShiftData(year, month, production)
@@ -26,6 +28,14 @@ export default function App() {
   const installPrompt = useInstallPrompt()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
   const [showSettings, setShowSettings] = useState(false)
+  const [selectedDay, setSelectedDay] = useState<CalendarDay | null>(null)
+
+  const now = new Date()
+  const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
+
+  if (needsOnboarding) {
+    return <Onboarding onSelect={setProduction} />
+  }
 
   return (
     <div
@@ -35,7 +45,9 @@ export default function App() {
       <div className="mx-auto max-w-md px-3 pb-8">
         {/* Header */}
         <div className="flex items-center justify-between pt-[env(safe-area-inset-top,16px)] pb-2">
-          <h1 className="text-xl font-bold">Turnos</h1>
+          <h1 className="text-xl font-bold">
+            Turnos <span className="text-sm font-normal text-slate-500 dark:text-slate-400">· P{production}</span>
+          </h1>
           <button
             type="button"
             onClick={() => setShowSettings(!showSettings)}
@@ -94,6 +106,8 @@ export default function App() {
           production={production}
           slideDir={slideDir}
           onSlideEnd={clearSlide}
+          onDaySelect={setSelectedDay}
+          selectedDay={selectedDay}
         />
 
         {/* Month summary */}
@@ -104,6 +118,27 @@ export default function App() {
           <UpcomingHolidays production={production} />
         </div>
       </div>
+
+      {/* Floating "Hoy" button */}
+      {!isCurrentMonth && (
+        <button
+          type="button"
+          onClick={goToToday}
+          className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 active:bg-indigo-800 transition-colors min-h-[44px] z-40"
+        >
+          <CalendarDays size={16} />
+          Hoy
+        </button>
+      )}
+
+      {/* Day detail bottom sheet */}
+      {selectedDay && (
+        <DayDetail
+          day={selectedDay}
+          production={production}
+          onClose={() => setSelectedDay(null)}
+        />
+      )}
     </div>
   )
 }

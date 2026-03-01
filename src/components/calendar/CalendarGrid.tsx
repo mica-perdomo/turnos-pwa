@@ -3,17 +3,17 @@ import type { CalendarDay } from '../../lib/calendar'
 import type { SlideDirection } from '../../hooks/useCalendarMonth'
 import { CalendarHeader } from './CalendarHeader'
 import { DayCell } from './DayCell'
-import { DayDetail } from '../info/DayDetail'
 
 interface Props {
   grid: CalendarDay[][]
   production: number
   slideDir: SlideDirection
   onSlideEnd: () => void
+  onDaySelect: (day: CalendarDay | null) => void
+  selectedDay: CalendarDay | null
 }
 
-export function CalendarGrid({ grid, production, slideDir, onSlideEnd }: Props) {
-  const [selected, setSelected] = useState<CalendarDay | null>(null)
+export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selectedDay }: Props) {
   const [animClass, setAnimClass] = useState('')
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -22,13 +22,11 @@ export function CalendarGrid({ grid, production, slideDir, onSlideEnd }: Props) 
       setAnimClass('')
       return
     }
-    // Start off-screen
     setAnimClass(
       slideDir === 'left'
         ? 'translate-x-[60px] opacity-0'
         : '-translate-x-[60px] opacity-0',
     )
-    // Slide in on next frame
     const raf = requestAnimationFrame(() => {
       setAnimClass('translate-x-0 opacity-100')
     })
@@ -44,7 +42,7 @@ export function CalendarGrid({ grid, production, slideDir, onSlideEnd }: Props) 
 
   // Clear selection when month changes
   useEffect(() => {
-    setSelected(null)
+    onDaySelect(null)
   }, [grid])
 
   return (
@@ -59,20 +57,13 @@ export function CalendarGrid({ grid, production, slideDir, onSlideEnd }: Props) 
             key={day.date.toISOString()}
             day={day}
             selected={
-              selected !== null &&
-              day.date.getTime() === selected.date.getTime()
+              selectedDay !== null &&
+              day.date.getTime() === selectedDay.date.getTime()
             }
-            onSelect={setSelected}
+            onSelect={onDaySelect}
           />
         ))}
       </div>
-      {selected && (
-        <DayDetail
-          day={selected}
-          production={production}
-          onClose={() => setSelected(null)}
-        />
-      )}
     </div>
   )
 }
