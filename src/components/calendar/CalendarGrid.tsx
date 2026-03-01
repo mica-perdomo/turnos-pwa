@@ -52,25 +52,40 @@ export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selected
     onDaySelect(null)
   }, [grid])
 
+  const today = new Date()
+  const todayStr = formatDateKey(today)
+
   return (
     <div>
       <CalendarHeader />
       <div
         ref={containerRef}
-        className={`grid grid-cols-7 gap-1 transition-all duration-200 ease-out ${animClass}`}
+        className={`flex flex-col gap-1 transition-all duration-200 ease-out ${animClass}`}
       >
-        {grid.flat().map((day) => (
-          <DayCell
-            key={day.date.toISOString()}
-            day={day}
-            selected={
-              selectedDay !== null &&
-              day.date.getTime() === selectedDay.date.getTime()
-            }
-            onSelect={onDaySelect}
-            hasNote={!!notes[formatDateKey(day.date)]}
-          />
-        ))}
+        {grid.map((row, rowIdx) => {
+          const isCurrentWeek = row.some((day) => formatDateKey(day.date) === todayStr)
+          return (
+            <div
+              key={rowIdx}
+              className={`grid grid-cols-7 gap-1 ${
+                isCurrentWeek ? 'bg-indigo-500/5 dark:bg-indigo-400/5 rounded-lg' : ''
+              }`}
+            >
+              {row.map((day) => (
+                <DayCell
+                  key={day.date.toISOString()}
+                  day={day}
+                  selected={
+                    selectedDay !== null &&
+                    day.date.getTime() === selectedDay.date.getTime()
+                  }
+                  onSelect={onDaySelect}
+                  hasNote={!!notes[formatDateKey(day.date)]}
+                />
+              ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

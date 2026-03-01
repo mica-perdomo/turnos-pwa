@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import { useProduction } from './hooks/useProduction'
 import { useCalendarMonth } from './hooks/useCalendarMonth'
 import { useShiftData, type CalendarDay } from './hooks/useShiftData'
@@ -17,9 +17,10 @@ import { DayDetail } from './components/info/DayDetail'
 import { SettingsBar } from './components/settings/SettingsBar'
 import { Onboarding } from './components/ui/Onboarding'
 import { InstallGuide } from './components/ui/InstallGuide'
-import { Settings, CalendarDays, CheckCircle } from 'lucide-react'
-import { PROD_COLORS } from './lib/constants'
+import { Settings, CalendarDays, CheckCircle, Share2 } from 'lucide-react'
+import { PROD_COLORS, MONTHS_ES } from './lib/constants'
 import { getItem, setItem } from './lib/storage'
+import { toPng } from 'html-to-image'
 
 function formatDateKey(date: Date): string {
   const y = date.getFullYear()
@@ -114,6 +115,36 @@ export default function App() {
     localStorage.setItem('turnos_show_holidays', JSON.stringify(v))
   }, [])
 
+  const calendarRef = useRef<HTMLDivElement>(null)
+  const [sharing, setSharing] = useState(false)
+
+  const handleShareCalendar = useCallback(async () => {
+    if (!calendarRef.current || sharing) return
+    setSharing(true)
+    try {
+      const dataUrl = await toPng(calendarRef.current, {
+        backgroundColor: document.documentElement.classList.contains('dark') ? '#171717' : '#ffffff',
+        pixelRatio: 2,
+      })
+      const res = await fetch(dataUrl)
+      const blob = await res.blob()
+      const file = new File([blob], `turnos-${MONTHS_ES[month]}-${year}.png`, { type: 'image/png' })
+
+      if (navigator.share && navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file] })
+      } else {
+        const a = document.createElement('a')
+        a.href = dataUrl
+        a.download = file.name
+        a.click()
+      }
+    } catch (e) {
+      if ((e as DOMException)?.name !== 'AbortError') console.error('Share failed:', e)
+    } finally {
+      setSharing(false)
+    }
+  }, [sharing, month, year])
+
   const now = new Date()
   const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
 
@@ -187,28 +218,42 @@ export default function App() {
           </div>
         )}
 
-        {/* Month navigation */}
-        <MonthNavigator
-          year={year}
-          month={month}
-          onPrev={prevMonth}
-          onNext={nextMonth}
-          onToday={goToToday}
-          onGoTo={goTo}
-        />
+        {/* Shareable calendar block */}
+        <div ref={calendarRef}>
+          {/* Month navigation */}
+          <MonthNavigator
+            year={year}
+            month={month}
+            onPrev={prevMonth}
+            onNext={nextMonth}
+            onToday={goToToday}
+            onGoTo={goTo}
+          />
 
-        {/* Calendar */}
-        <CalendarGrid
-          grid={grid}
-          slideDir={slideDir}
-          onSlideEnd={clearSlide}
-          onDaySelect={setSelectedDay}
-          selectedDay={selectedDay}
-          notes={notes}
-        />
+          {/* Calendar */}
+          <CalendarGrid
+            grid={grid}
+            slideDir={slideDir}
+            onSlideEnd={clearSlide}
+            onDaySelect={setSelectedDay}
+            selectedDay={selectedDay}
+            notes={notes}
+          />
 
-        {/* Calendar legend (always visible) */}
-        <CalendarLegend />
+          {/* Calendar legend (always visible) */}
+          <CalendarLegend />
+        </div>
+
+        {/* Share calendar button */}
+        <button
+          type="button"
+          onClick={handleShareCalendar}
+          disabled={sharing}
+          className="flex items-center justify-center gap-2 w-full py-2.5 mt-1 rounded-lg text-sm font-medium text-neutral-500 dark:text-neutral-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 active:bg-neutral-200 dark:active:bg-neutral-700 transition-colors disabled:opacity-50"
+        >
+          <Share2 size={16} className={sharing ? 'animate-pulse' : ''} />
+          {sharing ? 'Generando...' : 'Compartir calendario'}
+        </button>
 
         {/* Month summary (optional) */}
         {showSummary && <MonthSummary summary={monthSummary} month={month} />}
