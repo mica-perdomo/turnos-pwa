@@ -55,9 +55,9 @@ export default function App() {
       <div className="mx-auto max-w-md px-3 pb-8">
         {/* Header */}
         <div className="flex items-center justify-between pt-[env(safe-area-inset-top,16px)] pb-2">
-          <div className="flex items-baseline gap-2.5">
+          <div className="flex items-center gap-2.5">
             <h1 className="text-xl font-bold">Turnos</h1>
-            <span className="px-3 py-1 rounded-full bg-violet-600 text-white text-sm">
+            <span className="px-3 py-1 rounded-full bg-violet-600 text-white text-xs">
               Producción {production}
             </span>
           </div>
