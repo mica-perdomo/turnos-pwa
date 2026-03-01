@@ -144,7 +144,7 @@ export function DayDetail({ day, production, onClose }: Props) {
         )}
 
         {/* All productions */}
-        <div className="grid grid-cols-4 gap-2">
+        <div className={`grid grid-cols-4 gap-2 ${day.shift === 0 ? 'mt-6' : ''}`}>
           {allShifts.map((s, i) => (
             <div
               key={i}
