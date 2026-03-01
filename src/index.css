@@ -9,6 +9,12 @@
   --shift-0: #6b7280;
 }
 
+html,
+body {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
 html {
   -webkit-tap-highlight-color: transparent;
 }
@@ -16,9 +22,16 @@ html {
 body {
   margin: 0;
   @apply bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100;
-  overscroll-behavior: none;
   user-select: none;
   -webkit-user-select: none;
+}
+
+/* Hide scrollbars but keep scrolling */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes pulse-ring {

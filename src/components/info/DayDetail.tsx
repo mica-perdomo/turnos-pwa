@@ -22,6 +22,12 @@ export function DayDetail({ day, production, onClose }: Props) {
   const allShifts = getAllShifts(day.date)
   const dow = day.date.getDay()
 
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
+
   // Close on escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
