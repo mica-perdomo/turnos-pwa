@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { getUpcomingHolidays } from '../../lib/holidays'
 import { getShift } from '../../lib/shiftCycle'
-import { SHIFT_LABELS, SHIFT_COLORS, MONTHS_ES, DAYS_SHORT } from '../../lib/constants'
+import { SHIFT_COLORS, MONTHS_ES, DAYS_SHORT } from '../../lib/constants'
 
 interface Props {
   production: number
