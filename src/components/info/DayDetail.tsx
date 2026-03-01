@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { X, Sunrise, Sunset, Moon, BedDouble } from 'lucide-react'
 import type { CalendarDay } from '../../lib/calendar'
 import { getRelief } from '../../lib/relief'
@@ -31,15 +31,41 @@ export function DayDetail({ day, production, onClose }: Props) {
     return () => document.removeEventListener('keydown', handler)
   }, [onClose])
 
+  // Swipe down to dismiss
+  const [dragY, setDragY] = useState(0)
+  const startY = useRef(0)
+  const dragging = useRef(false)
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    startY.current = e.touches[0].clientY
+    dragging.current = true
+  }
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (!dragging.current) return
+    const dy = e.touches[0].clientY - startY.current
+    setDragY(Math.max(0, dy))
+  }
+  const onTouchEnd = () => {
+    dragging.current = false
+    if (dragY > 100) {
+      onClose()
+    }
+    setDragY(0)
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}>
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40" />
+      <div className="absolute inset-0 bg-black/40" style={{ opacity: Math.max(0, 1 - dragY / 300) }} />
 
       {/* Sheet */}
       <div
         className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[max(env(safe-area-inset-bottom,0px),32px)] animate-slide-up"
+        style={{ transform: `translateY(${dragY}px)`, transition: dragging.current ? 'none' : 'transform 0.2s ease-out' }}
         onClick={(e) => e.stopPropagation()}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         {/* Handle */}
         <div className="flex justify-center mb-4">
@@ -58,10 +84,10 @@ export function DayDetail({ day, production, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="w-10 h-10 rounded-full bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 flex items-center justify-center -mt-1 -mr-1"
             aria-label="Cerrar"
           >
-            <X size={20} />
+            <X size={18} />
           </button>
         </div>
 

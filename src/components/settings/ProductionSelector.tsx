@@ -14,7 +14,7 @@ export function ProductionSelector({ production, onChange }: Props) {
           type="button"
           onClick={() => onChange(p)}
           className={`
-            flex-1 min-h-[44px] rounded-lg font-bold text-sm
+            flex-1 min-h-11 rounded-lg font-bold text-sm
             transition-all duration-150
             ${
               p === production

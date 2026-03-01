@@ -18,7 +18,7 @@ export function NotificationSettings({ enabled, supported, permission, onToggle 
       onClick={denied ? undefined : onToggle}
       disabled={denied}
       className={`
-        flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium
+        flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium
         transition-all duration-150
         ${
           denied

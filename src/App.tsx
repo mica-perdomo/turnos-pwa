@@ -178,7 +178,7 @@ export default function App() {
         <button
           type="button"
           onClick={goToToday}
-          className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 active:bg-indigo-800 transition-colors min-h-[44px] z-40"
+          className="fixed bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-bold shadow-lg shadow-indigo-500/30 hover:bg-indigo-700 active:bg-indigo-800 transition-colors min-h-11 z-40"
         >
           <CalendarDays size={16} />
           Hoy

@@ -58,7 +58,7 @@ export function SettingsBar({
             type="button"
             onClick={() => onShowBannersChange(!showBanners)}
             className={`
-              flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+              flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium transition-all duration-150
               ${showBanners
                 ? 'bg-indigo-600 text-white'
                 : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
@@ -71,7 +71,7 @@ export function SettingsBar({
             type="button"
             onClick={() => onShowSummaryChange(!showSummary)}
             className={`
-              flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+              flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium transition-all duration-150
               ${showSummary
                 ? 'bg-indigo-600 text-white'
                 : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
@@ -93,7 +93,7 @@ export function SettingsBar({
               type="button"
               onClick={() => onZoomSizeChange(opt.value)}
               className={`
-                flex-1 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+                flex-1 min-h-11 rounded-lg text-sm font-medium transition-all duration-150
                 ${zoomSize === opt.value
                   ? 'bg-indigo-600 text-white'
                   : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}

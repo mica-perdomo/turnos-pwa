@@ -14,7 +14,7 @@ export function ThemeToggle({ theme, onChange }: Props) {
         type="button"
         onClick={() => onChange('light')}
         className={`
-          flex items-center gap-1.5 px-3 min-h-[44px] rounded-lg text-sm font-medium
+          flex items-center gap-1.5 px-3 min-h-11 rounded-lg text-sm font-medium
           transition-all duration-150
           ${
             theme === 'light'
@@ -30,7 +30,7 @@ export function ThemeToggle({ theme, onChange }: Props) {
         type="button"
         onClick={() => onChange('dark')}
         className={`
-          flex items-center gap-1.5 px-3 min-h-[44px] rounded-lg text-sm font-medium
+          flex items-center gap-1.5 px-3 min-h-11 rounded-lg text-sm font-medium
           transition-all duration-150
           ${
             theme === 'dark' || theme === 'system'

@@ -1,4 +1,4 @@
-import { Clock, Sunrise, AlertTriangle } from 'lucide-react'
+import { AlertTriangle } from 'lucide-react'
 import { SHIFT_LABELS, SHIFT_TIMES, SHIFT_COLORS, PROD_COLORS } from '../../lib/constants'
 import type { DayInfo } from '../../hooks/useShiftData'
 
@@ -9,22 +9,19 @@ interface Props {
 }
 
 function Row({
-  icon: Icon,
   label,
   day,
   production,
   showRelief,
 }: {
-  icon: typeof Clock
   label: string
   day: DayInfo
   production: number
   showRelief: boolean
 }) {
   return (
-    <div className={`flex items-center gap-2 px-3 py-2.5 ${day.shift === 1 ? 'bg-red-500/10 dark:bg-red-500/10' : SHIFT_COLORS.bg[day.shift]}`}>
-      <Icon size={16} className={`${SHIFT_COLORS.text[day.shift]} shrink-0`} />
-      <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase leading-none shrink-0">{label}</span>
+    <div className={`flex items-baseline gap-2 px-3 py-2.5 ${day.shift === 1 ? 'bg-red-500/10 dark:bg-red-500/10' : SHIFT_COLORS.bg[day.shift]}`}>
+      <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase shrink-0">{label}</span>
       <div className="flex items-baseline gap-1.5 min-w-0 whitespace-nowrap">
         <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">
           {SHIFT_LABELS[day.shift]}
@@ -65,8 +62,8 @@ function Row({
 export function TodayBanner({ today, tomorrow, production }: Props) {
   return (
     <div className="rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-700 divide-y divide-neutral-200 dark:divide-neutral-700">
-      <Row icon={Clock} label="Hoy" day={today} production={production} showRelief={true} />
-      <Row icon={Sunrise} label="Mañana" day={tomorrow} production={production} showRelief={true} />
+      <Row label="Hoy" day={today} production={production} showRelief={true} />
+      <Row label="Mañana" day={tomorrow} production={production} showRelief={true} />
     </div>
   )
 }

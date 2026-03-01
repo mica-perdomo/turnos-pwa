@@ -29,7 +29,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onInstall}
-              className="w-full py-4 rounded-xl bg-indigo-600 text-white text-base font-bold hover:bg-indigo-700 active:bg-indigo-800 transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full py-4 rounded-xl bg-indigo-600 text-white text-base font-bold hover:bg-indigo-700 active:bg-indigo-800 transition-colors flex items-center justify-center gap-2 min-h-11"
             >
               <Download size={20} />
               Instalar app
@@ -68,7 +68,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white text-sm font-semibold hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white text-sm font-semibold hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 min-h-11"
             >
               Ya la instalé
               <ArrowRight size={16} />
@@ -101,7 +101,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white text-sm font-semibold hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 min-h-[44px]"
+              className="w-full py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white text-sm font-semibold hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 min-h-11"
             >
               Continuar
               <ArrowRight size={16} />

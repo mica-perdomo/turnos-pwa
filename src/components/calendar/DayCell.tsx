@@ -17,7 +17,7 @@ export function DayCell({ day, selected, onSelect }: Props) {
       onClick={() => onSelect(day)}
       className={`
         relative flex flex-col items-center justify-center
-        min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium
+        min-h-11 min-w-11 rounded-lg text-sm font-medium
         transition-all duration-150
         ${isOtherMonth ? 'opacity-30' : ''}
         ${day.isToday ? 'today-pulse ring-2 ring-indigo-500' : ''}

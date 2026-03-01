@@ -18,7 +18,7 @@ export function Onboarding({ onSelect }: Props) {
               key={p}
               type="button"
               onClick={() => onSelect(p)}
-              className="py-5 rounded-xl bg-neutral-800 border-2 border-neutral-700 text-white text-lg font-bold hover:border-indigo-500 hover:bg-neutral-700 active:bg-indigo-600 transition-all min-h-[44px]"
+              className="py-5 rounded-xl bg-neutral-800 border-2 border-neutral-700 text-white text-lg font-bold hover:border-indigo-500 hover:bg-neutral-700 active:bg-indigo-600 transition-all min-h-11"
             >
               Producción {p}
             </button>

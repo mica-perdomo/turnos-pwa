@@ -27,7 +27,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 min-w-11 min-h-11 flex items-center justify-center"
           >
             <X size={20} />
           </button>
@@ -38,7 +38,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={() => setSelYear((y) => y - 1)}
-            className="px-3 min-h-[44px] rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
+            className="px-3 min-h-11 rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
           >
             ‹
           </button>
@@ -46,7 +46,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={() => setSelYear((y) => y + 1)}
-            className="px-3 min-h-[44px] rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
+            className="px-3 min-h-11 rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
           >
             ›
           </button>
@@ -66,7 +66,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
                 }}
                 className={`
                   py-3 rounded-lg text-sm font-medium transition-all
-                  min-h-[44px]
+                  min-h-11
                   ${
                     isCurrent
                       ? 'bg-indigo-600 text-white'
