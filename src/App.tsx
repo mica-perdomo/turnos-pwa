@@ -5,6 +5,7 @@ import { useShiftData } from './hooks/useShiftData'
 import { useSwipe } from './hooks/useSwipe'
 import { useTheme } from './hooks/useTheme'
 import { useNotifications } from './hooks/useNotifications'
+import { useInstallPrompt } from './hooks/useInstallPrompt'
 
 import { MonthNavigator } from './components/calendar/MonthNavigator'
 import { CalendarGrid } from './components/calendar/CalendarGrid'
@@ -12,6 +13,7 @@ import { TodayBanner } from './components/info/TodayBanner'
 import { MonthSummary } from './components/info/MonthSummary'
 import { UpcomingHolidays } from './components/info/UpcomingHolidays'
 import { SettingsBar } from './components/settings/SettingsBar'
+import { InstallBanner } from './components/ui/InstallBanner'
 import { Settings } from 'lucide-react'
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
   const { grid, todayInfo, tomorrowInfo, monthSummary } = useShiftData(year, month, production)
   const { theme, setTheme } = useTheme()
   const notifications = useNotifications()
+  const installPrompt = useInstallPrompt()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
   const [showSettings, setShowSettings] = useState(false)
 
@@ -54,6 +57,16 @@ export default function App() {
               notifications={notifications}
             />
           </div>
+        )}
+
+        {/* Install banner */}
+        {installPrompt.visible && (
+          <InstallBanner
+            canPrompt={installPrompt.canPrompt}
+            showIOSGuide={installPrompt.showIOSGuide}
+            onInstall={installPrompt.install}
+            onDismiss={installPrompt.dismiss}
+          />
         )}
 
         {/* Today + Tomorrow banners */}
