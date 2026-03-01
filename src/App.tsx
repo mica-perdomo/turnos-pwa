@@ -55,9 +55,12 @@ export default function App() {
       <div className="mx-auto max-w-md px-3 pb-8">
         {/* Header */}
         <div className="flex items-center justify-between pt-[env(safe-area-inset-top,16px)] pb-2">
-          <h1 className="text-xl font-bold">
-            Turnos <span className="text-sm font-normal text-slate-500 dark:text-slate-400">· P{production}</span>
-          </h1>
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-xl font-bold">Turnos</h1>
+            <span className="px-2.5 py-0.5 rounded-full bg-violet-600 text-white text-xs font-bold tracking-wide">
+              Producción {production}
+            </span>
+          </div>
           <button
             type="button"
             onClick={() => setShowSettings(!showSettings)}
