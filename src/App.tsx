@@ -207,7 +207,7 @@ export default function App() {
 
       {/* Update toast */}
       {updateToast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-3 rounded-xl bg-green-600 text-white text-sm font-medium shadow-lg z-50 animate-[fadeInUp_0.3s_ease-out]">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium shadow-lg z-50 animate-[fadeInUp_0.3s_ease-out]" style={{ backgroundColor: '#16a34a', color: '#ffffff' }}>
           <CheckCircle size={18} />
           Actualizado a v{updateToast}
         </div>
