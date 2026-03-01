@@ -68,7 +68,7 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
 
       {/* Sheet */}
       <div
-        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[max(env(safe-area-inset-bottom,0px),32px)] animate-slide-up"
+        className="relative w-full max-w-md max-h-[85vh] bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[max(env(safe-area-inset-bottom,0px),32px)] animate-slide-up overflow-y-auto"
         style={{ transform: `translateY(${dragY}px)`, transition: dragging.current ? 'none' : 'transform 0.2s ease-out' }}
         onClick={(e) => e.stopPropagation()}
         onTouchStart={onTouchStart}
@@ -199,7 +199,7 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
             )}
           </div>
           <textarea
-            className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-700 p-3 text-base text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 resize-none outline-none focus:ring-2 focus:ring-indigo-500/50"
+            className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-700 p-3 text-base text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 resize-none outline-none focus:ring-2 focus:ring-indigo-500/50 overflow-hidden"
             rows={2}
             placeholder="Agregar nota..."
             value={note}
