@@ -204,6 +204,10 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
             placeholder="Agregar nota..."
             value={note}
             onChange={(e) => onNoteChange(e.target.value)}
+            onFocus={(e) => {
+              const el = e.target
+              setTimeout(() => el.scrollIntoView({ block: 'center', behavior: 'smooth' }), 350)
+            }}
           />
         </div>
       </div>
