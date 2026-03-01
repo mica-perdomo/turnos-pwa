@@ -10,7 +10,6 @@ interface Props {
 export function DayCell({ day, selected, onSelect }: Props) {
   const hasHoliday = day.holidays.length > 0
   const isOtherMonth = !day.isCurrentMonth
-  const isWeekend = day.date.getDay() === 0 || day.date.getDay() === 6
 
   return (
     <button
@@ -21,7 +20,6 @@ export function DayCell({ day, selected, onSelect }: Props) {
         min-h-[44px] min-w-[44px] rounded-lg text-sm font-medium
         transition-all duration-150
         ${isOtherMonth ? 'opacity-30' : ''}
-        ${isWeekend && day.isCurrentMonth ? 'bg-slate-100 dark:bg-slate-800/60' : ''}
         ${day.isToday ? 'today-pulse ring-2 ring-indigo-500' : ''}
         ${selected ? 'ring-2 ring-white/60 dark:ring-white/40' : ''}
         ${hasHoliday ? 'border-2 border-amber-400' : 'border-2 border-transparent'}
