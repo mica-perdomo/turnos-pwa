@@ -91,11 +91,17 @@ export function SettingsBar({
         <button
           type="button"
           disabled={updating}
-          onClick={() => {
+          onClick={async () => {
             setUpdating(true)
-            navigator.serviceWorker?.getRegistration().then((reg) => {
-              reg?.update().then(() => window.location.reload())
-            }) ?? window.location.reload()
+            try {
+              // Unregister service worker so stale cache doesn't serve old files
+              const reg = await navigator.serviceWorker?.getRegistration()
+              await reg?.unregister()
+              // Clear all caches
+              const keys = await caches.keys()
+              await Promise.all(keys.map((k) => caches.delete(k)))
+            } catch { /* proceed anyway */ }
+            window.location.reload()
           }}
           className="flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-50 transition-all duration-150"
         >
