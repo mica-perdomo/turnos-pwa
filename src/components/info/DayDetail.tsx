@@ -199,7 +199,7 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
             )}
           </div>
           <textarea
-            className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-700 p-3 text-sm text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 resize-none outline-none focus:ring-2 focus:ring-indigo-500/50"
+            className="w-full rounded-lg bg-neutral-100 dark:bg-neutral-700 p-3 text-base text-neutral-800 dark:text-neutral-200 placeholder-neutral-400 dark:placeholder-neutral-500 resize-none outline-none focus:ring-2 focus:ring-indigo-500/50"
             rows={2}
             placeholder="Agregar nota..."
             value={note}
