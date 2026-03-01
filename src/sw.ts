@@ -3,6 +3,12 @@ import { precacheAndRoute } from 'workbox-precaching'
 
 declare let self: ServiceWorkerGlobalScope
 
+// Take control immediately on update (no waiting for tabs to close)
+self.addEventListener('install', () => self.skipWaiting())
+self.addEventListener('activate', (event) => {
+  event.waitUntil(self.clients.claim())
+})
+
 // Precache all Vite-built assets
 precacheAndRoute(self.__WB_MANIFEST)
 
