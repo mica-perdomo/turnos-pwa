@@ -23,11 +23,11 @@ export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selected
     }
     setAnimClass(
       slideDir === 'left'
-        ? 'translate-x-[60px] opacity-0'
-        : '-translate-x-[60px] opacity-0',
+        ? 'tranneutral-x-[60px] opacity-0'
+        : '-tranneutral-x-[60px] opacity-0',
     )
     const raf = requestAnimationFrame(() => {
-      setAnimClass('translate-x-0 opacity-100')
+      setAnimClass('tranneutral-x-0 opacity-100')
     })
     const timer = setTimeout(() => {
       setAnimClass('')

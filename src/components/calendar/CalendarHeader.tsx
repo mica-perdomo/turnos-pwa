@@ -8,8 +8,8 @@ export function CalendarHeader() {
           key={d}
           className={`text-center text-xs font-semibold py-1 ${
             i === 0 || i === 6
-              ? 'text-slate-700 dark:text-slate-200'
-              : 'text-slate-500 dark:text-slate-400'
+              ? 'text-neutral-700 dark:text-neutral-200'
+              : 'text-neutral-500 dark:text-neutral-400'
           }`}
         >
           {d}

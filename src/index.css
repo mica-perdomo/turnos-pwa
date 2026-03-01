@@ -15,7 +15,7 @@ html {
 
 body {
   margin: 0;
-  @apply bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-100;
+  @apply bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100;
   overscroll-behavior: none;
   user-select: none;
   -webkit-user-select: none;
@@ -39,10 +39,10 @@ body {
 
 @keyframes slide-up {
   from {
-    transform: translateY(100%);
+    transform: tranneutralY(100%);
   }
   to {
-    transform: translateY(0);
+    transform: tranneutralY(0);
   }
 }
 

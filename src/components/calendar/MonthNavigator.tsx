@@ -21,7 +21,7 @@ export function MonthNavigator({ year, month, onPrev, onNext, onGoTo }: Props) {
         <button
           type="button"
           onClick={onPrev}
-          className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
+          className="w-10 h-10 rounded-full bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 active:bg-neutral-400 dark:active:bg-neutral-500 flex items-center justify-center transition-colors"
           aria-label="Mes anterior"
         >
           <ChevronLeft size={20} />
@@ -30,7 +30,7 @@ export function MonthNavigator({ year, month, onPrev, onNext, onGoTo }: Props) {
         <button
           type="button"
           onClick={() => setShowPicker(true)}
-          className="flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+          className="flex items-center gap-2 px-3 py-1 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
         >
           <span className="text-lg font-bold">
             {MONTHS_ES[month]} {year}
@@ -40,7 +40,7 @@ export function MonthNavigator({ year, month, onPrev, onNext, onGoTo }: Props) {
         <button
           type="button"
           onClick={onNext}
-          className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
+          className="w-10 h-10 rounded-full bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 active:bg-neutral-400 dark:active:bg-neutral-500 flex items-center justify-center transition-colors"
           aria-label="Mes siguiente"
         >
           <ChevronRight size={20} />

@@ -23,7 +23,7 @@ interface Props {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-[11px] font-medium text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+    <div className="text-[11px] font-medium text-neutral-400 dark:text-neutral-500 uppercase tracking-wider">
       {children}
     </div>
   )
@@ -61,7 +61,7 @@ export function SettingsBar({
               flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
               ${showBanners
                 ? 'bg-indigo-600 text-white'
-                : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'}
+                : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
             `}
           >
             {showBanners ? <Eye size={16} /> : <EyeOff size={16} />}
@@ -81,7 +81,7 @@ export function SettingsBar({
               const idx = zoomSteps.indexOf(zoom)
               if (idx > 0) onZoomChange(zoomSteps[idx - 1])
             }}
-            className="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-30 flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-lg bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-30 flex items-center justify-center transition-colors"
             aria-label="Reducir tamaño"
           >
             <Minus size={16} />
@@ -94,7 +94,7 @@ export function SettingsBar({
               const idx = zoomSteps.indexOf(zoom)
               if (idx < zoomSteps.length - 1) onZoomChange(zoomSteps[idx + 1])
             }}
-            className="w-10 h-10 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 disabled:opacity-30 flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-lg bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-30 flex items-center justify-center transition-colors"
             aria-label="Aumentar tamaño"
           >
             <Plus size={16} />

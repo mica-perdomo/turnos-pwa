@@ -19,7 +19,7 @@ export function ProductionSelector({ production, onChange }: Props) {
             ${
               p === production
                 ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/30'
-                : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'
+                : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
             }
           `}
         >

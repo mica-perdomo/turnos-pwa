@@ -38,17 +38,17 @@ export function DayDetail({ day, production, onClose }: Props) {
 
       {/* Sheet */}
       <div
-        className="relative w-full max-w-md bg-white dark:bg-slate-800 rounded-t-2xl p-5 pb-[env(safe-area-inset-bottom,20px)] animate-slide-up"
+        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[env(safe-area-inset-bottom,20px)] animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Handle */}
         <div className="flex justify-center mb-3">
-          <div className="w-10 h-1 rounded-full bg-slate-300 dark:bg-slate-600" />
+          <div className="w-10 h-1 rounded-full bg-neutral-300 dark:bg-neutral-600" />
         </div>
 
         <div className="flex items-center justify-between mb-3">
           <div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide">
+            <div className="text-xs text-neutral-500 dark:text-neutral-400 uppercase tracking-wide">
               {DOW_NAMES[dow]}
             </div>
             <div className="font-bold text-lg">
@@ -58,7 +58,7 @@ export function DayDetail({ day, production, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Cerrar"
           >
             <X size={20} />
@@ -67,7 +67,7 @@ export function DayDetail({ day, production, onClose }: Props) {
 
         {/* Current production shift */}
         <div className={`rounded-xl p-4 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
-          <div className="text-xs text-slate-500 dark:text-slate-400 mb-1">
+          <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
             Producción {production}
           </div>
           <div className={`text-2xl font-bold ${SHIFT_COLORS.text[day.shift]}`}>
@@ -84,17 +84,17 @@ export function DayDetail({ day, production, onClose }: Props) {
         {day.shift !== 0 && (
           <div className="flex gap-2 mb-3 text-xs">
             {relief.relievesProduction > 0 && (
-              <div className="flex-1 rounded-lg bg-slate-100 dark:bg-slate-700/60 px-3 py-2">
-                <div className="text-slate-400 dark:text-slate-500">Releva a</div>
-                <div className="font-bold text-slate-700 dark:text-slate-200">
+              <div className="flex-1 rounded-lg bg-neutral-100 dark:bg-neutral-700/60 px-3 py-2">
+                <div className="text-neutral-400 dark:text-neutral-500">Releva a</div>
+                <div className="font-bold text-neutral-700 dark:text-neutral-200">
                   Producción {relief.relievesProduction}
                 </div>
               </div>
             )}
             {relief.relievedByProduction > 0 && (
-              <div className="flex-1 rounded-lg bg-slate-100 dark:bg-slate-700/60 px-3 py-2">
-                <div className="text-slate-400 dark:text-slate-500">Lo releva</div>
-                <div className="font-bold text-slate-700 dark:text-slate-200">
+              <div className="flex-1 rounded-lg bg-neutral-100 dark:bg-neutral-700/60 px-3 py-2">
+                <div className="text-neutral-400 dark:text-neutral-500">Lo releva</div>
+                <div className="font-bold text-neutral-700 dark:text-neutral-200">
                   Producción {relief.relievedByProduction}
                 </div>
               </div>
@@ -111,7 +111,7 @@ export function DayDetail({ day, production, onClose }: Props) {
                 i + 1 === production ? 'ring-2 ring-indigo-500' : ''
               }`}
             >
-              <div className="text-[10px] text-slate-500 dark:text-slate-400">P{i + 1}</div>
+              <div className="text-[10px] text-neutral-500 dark:text-neutral-400">P{i + 1}</div>
               <div className={`text-xs font-bold ${SHIFT_COLORS.text[s]}`}>
                 {s === 0 ? 'F' : `${s}º`}
               </div>
@@ -121,12 +121,12 @@ export function DayDetail({ day, production, onClose }: Props) {
 
         {/* Holidays */}
         {day.holidays.length > 0 && (
-          <div className="mt-3 pt-2 border-t border-slate-200 dark:border-slate-700">
+          <div className="mt-3 pt-2 border-t border-neutral-200 dark:border-neutral-700">
             {day.holidays.map((h, i) => (
               <div key={i} className="text-sm text-amber-500 dark:text-amber-400">
                 {h.name}
                 {h.moved && (
-                  <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">
+                  <span className="text-xs text-neutral-500 dark:text-neutral-400 ml-1">
                     (trasladado)
                   </span>
                 )}

@@ -17,7 +17,7 @@ export function UpcomingHolidays({ production }: Props) {
   const visible = open ? holidays : holidays.slice(0, 2)
 
   return (
-    <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+    <div className="rounded-xl bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-700">
       {/* Header — always tappable */}
       <button
         type="button"
@@ -25,12 +25,12 @@ export function UpcomingHolidays({ production }: Props) {
         className="flex items-center gap-2 w-full px-4 py-3 min-h-[44px]"
       >
         <Calendar size={16} className="text-amber-400" />
-        <span className="text-sm font-semibold text-slate-600 dark:text-slate-300 flex-1 text-left">
+        <span className="text-sm font-semibold text-neutral-600 dark:text-neutral-300 flex-1 text-left">
           Próximos feriados
         </span>
         <ChevronDown
           size={16}
-          className={`text-slate-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          className={`text-neutral-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
         />
       </button>
 
@@ -43,11 +43,11 @@ export function UpcomingHolidays({ production }: Props) {
           return (
             <div key={i} className="flex items-center gap-3">
               <div className="w-10 text-center">
-                <div className="text-xs text-slate-400 dark:text-slate-500 uppercase">{month}</div>
-                <div className="text-sm font-bold text-slate-700 dark:text-slate-200">{day}</div>
+                <div className="text-xs text-neutral-400 dark:text-neutral-500 uppercase">{month}</div>
+                <div className="text-sm font-bold text-neutral-700 dark:text-neutral-200">{day}</div>
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-sm text-slate-700 dark:text-slate-200 truncate">
+                <div className="text-sm text-neutral-700 dark:text-neutral-200 truncate">
                   {h.name}
                 </div>
               </div>

@@ -24,7 +24,7 @@ function Row({
   return (
     <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[day.shift]}`}>
       <Icon size={16} className={`${SHIFT_COLORS.text[day.shift]} shrink-0`} />
-      <span className="w-14 text-xs text-slate-500 dark:text-slate-400 uppercase leading-none">{label}</span>
+      <span className="w-14 text-xs text-neutral-500 dark:text-neutral-400 uppercase leading-none">{label}</span>
       <div className="flex items-baseline gap-2">
         <span className={`font-bold ${SHIFT_COLORS.text[day.shift]}`}>
           {SHIFT_LABELS[day.shift]}
@@ -38,13 +38,13 @@ function Row({
       <div className="ml-auto flex items-center gap-1.5 shrink-0">
         {showRelief && (
           <>
-            <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-medium leading-none">
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 font-medium leading-none">
               P{production}
             </span>
             {day.shift !== 0 && day.relief.relievesProduction > 0 && (
               <>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 leading-none">→</span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400 font-medium leading-none">
+                <span className="text-[10px] text-neutral-400 dark:text-neutral-500 leading-none">→</span>
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-neutral-200 dark:bg-neutral-700 text-neutral-500 dark:text-neutral-400 font-medium leading-none">
                   P{day.relief.relievesProduction}
                 </span>
               </>
@@ -61,7 +61,7 @@ function Row({
 
 export function TodayBanner({ today, tomorrow, production }: Props) {
   return (
-    <div className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700">
+    <div className="rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-700 divide-y divide-neutral-200 dark:divide-neutral-700">
       <Row icon={Clock} label="Hoy" day={today} production={production} showRelief={true} />
       <Row icon={Sunrise} label="Mañana" day={tomorrow} production={production} showRelief={false} />
     </div>

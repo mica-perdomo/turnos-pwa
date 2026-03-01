@@ -16,7 +16,7 @@ export function InstallBanner({ canPrompt, showIOSGuide, onInstall, onDismiss }:
         <div className="flex-1 min-w-0">
           {canPrompt ? (
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
+              <span className="text-sm font-medium text-neutral-700 dark:text-neutral-200">
                 Instalar Turnos
               </span>
               <button
@@ -28,7 +28,7 @@ export function InstallBanner({ canPrompt, showIOSGuide, onInstall, onDismiss }:
               </button>
             </div>
           ) : showIOSGuide ? (
-            <div className="text-sm text-slate-700 dark:text-slate-200">
+            <div className="text-sm text-neutral-700 dark:text-neutral-200">
               <span>Tocá </span>
               <Share size={14} className="inline -mt-0.5 text-indigo-500" />
               <span className="font-medium"> Compartir</span>
@@ -41,10 +41,10 @@ export function InstallBanner({ canPrompt, showIOSGuide, onInstall, onDismiss }:
         <button
           type="button"
           onClick={onDismiss}
-          className="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors shrink-0"
+          className="p-1.5 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors shrink-0"
           aria-label="Cerrar"
         >
-          <X size={16} className="text-slate-400" />
+          <X size={16} className="text-neutral-400" />
         </button>
       </div>
     </div>

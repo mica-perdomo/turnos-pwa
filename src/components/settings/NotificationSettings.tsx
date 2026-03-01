@@ -22,10 +22,10 @@ export function NotificationSettings({ enabled, supported, permission, onToggle 
         transition-all duration-150
         ${
           denied
-            ? 'bg-slate-200 dark:bg-slate-700 text-slate-400 cursor-not-allowed'
+            ? 'bg-neutral-200 dark:bg-neutral-700 text-neutral-400 cursor-not-allowed'
             : enabled
               ? 'bg-indigo-600 text-white'
-              : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'
+              : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
         }
       `}
       title={denied ? 'Notificaciones bloqueadas en el navegador' : undefined}

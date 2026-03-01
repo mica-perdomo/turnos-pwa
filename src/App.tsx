@@ -79,7 +79,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 transition-colors overflow-x-hidden">
+    <div className="min-h-screen bg-white dark:bg-neutral-900 transition-colors overflow-x-hidden">
       <div
         className="mx-auto max-w-md px-4 pb-8 origin-top"
         style={{
@@ -99,7 +99,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => setShowSettings(!showSettings)}
-            className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
+            className="w-12 h-12 rounded-full bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 active:bg-neutral-400 dark:active:bg-neutral-500 flex items-center justify-center transition-colors"
             aria-label="Configuración"
           >
             <Settings size={22} />
@@ -108,7 +108,7 @@ export default function App() {
 
         {/* Settings panel */}
         {showSettings && (
-          <div className="mb-5 rounded-xl bg-slate-50 dark:bg-slate-800/50 p-4 border border-slate-200 dark:border-slate-700">
+          <div className="mb-5 rounded-xl bg-neutral-50 dark:bg-neutral-800/50 p-4 border border-neutral-200 dark:border-neutral-700">
             <SettingsBar
               production={production}
               onProductionChange={setProduction}

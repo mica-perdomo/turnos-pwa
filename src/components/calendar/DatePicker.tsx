@@ -18,7 +18,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
       onClick={onClose}
     >
       <div
-        className="w-full max-w-sm bg-white dark:bg-slate-800 rounded-t-2xl sm:rounded-2xl p-5 pb-8 sm:pb-5"
+        className="w-full max-w-sm bg-white dark:bg-neutral-800 rounded-t-2xl sm:rounded-2xl p-5 pb-8 sm:pb-5"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
@@ -27,7 +27,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-2 rounded-lg hover:bg-neutral-200 dark:hover:bg-neutral-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
           >
             <X size={20} />
           </button>
@@ -38,7 +38,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={() => setSelYear((y) => y - 1)}
-            className="px-3 min-h-[44px] rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-bold transition-colors"
+            className="px-3 min-h-[44px] rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
           >
             ‹
           </button>
@@ -46,7 +46,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
           <button
             type="button"
             onClick={() => setSelYear((y) => y + 1)}
-            className="px-3 min-h-[44px] rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 font-bold transition-colors"
+            className="px-3 min-h-[44px] rounded-lg bg-neutral-100 dark:bg-neutral-700 hover:bg-neutral-200 dark:hover:bg-neutral-600 font-bold transition-colors"
           >
             ›
           </button>
@@ -70,7 +70,7 @@ export function DatePicker({ year, month, onSelect, onClose }: Props) {
                   ${
                     isCurrent
                       ? 'bg-indigo-600 text-white'
-                      : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600'
+                      : 'bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600'
                   }
                 `}
               >
