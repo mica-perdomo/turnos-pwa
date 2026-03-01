@@ -97,7 +97,7 @@ export default function App() {
         />
 
         {/* Month summary */}
-        <MonthSummary summary={monthSummary} />
+        <MonthSummary summary={monthSummary} month={month} />
 
         {/* Upcoming holidays */}
         <div className="mt-4">
