@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { X } from 'lucide-react'
+import { X, Sunrise, Sunset, Moon, Coffee } from 'lucide-react'
 import type { CalendarDay } from '../../lib/calendar'
 import { getRelief } from '../../lib/relief'
 import { getAllShifts } from '../../lib/shiftCycle'
-import { SHIFT_LABELS, SHIFT_TIMES, SHIFT_COLORS } from '../../lib/constants'
+import { SHIFT_LABELS, SHIFT_TIMES, SHIFT_COLORS, PROD_COLORS } from '../../lib/constants'
 
 interface Props {
   day: CalendarDay
@@ -38,7 +38,7 @@ export function DayDetail({ day, production, onClose }: Props) {
 
       {/* Sheet */}
       <div
-        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[env(safe-area-inset-bottom,20px)] animate-slide-up"
+        className="relative w-full max-w-md bg-white dark:bg-neutral-800 rounded-t-2xl p-5 pb-[max(env(safe-area-inset-bottom,0px),32px)] animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Handle */}
@@ -66,38 +66,53 @@ export function DayDetail({ day, production, onClose }: Props) {
         </div>
 
         {/* Current production shift */}
-        <div className={`rounded-xl p-4 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
-          <div className="text-xs text-neutral-500 dark:text-neutral-400 mb-1">
-            Producción {production}
-          </div>
-          <div className={`text-2xl font-bold ${SHIFT_COLORS.text[day.shift]}`}>
-            {SHIFT_LABELS[day.shift]}
-          </div>
-          {SHIFT_TIMES[day.shift] && (
-            <div className={`text-lg font-semibold ${SHIFT_COLORS.text[day.shift]} opacity-80`}>
-              {SHIFT_TIMES[day.shift]}
+        <div className={`flex items-center rounded-xl p-4 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
+          <div className="flex-1">
+            <span className={`inline-block px-2.5 py-0.5 rounded-full ${PROD_COLORS.bg[production]} text-white text-[11px] font-medium mb-2`}>
+              Producción {production}
+            </span>
+            <div className="text-2xl font-bold text-neutral-800 dark:text-neutral-100">
+              {SHIFT_LABELS[day.shift]}
             </div>
-          )}
+            {SHIFT_TIMES[day.shift] && (
+              <div className="text-lg font-semibold text-neutral-500 dark:text-neutral-400">
+                {SHIFT_TIMES[day.shift]}
+              </div>
+            )}
+          </div>
+          {day.shift === 0 && <Coffee size={40} className="text-neutral-400/50 dark:text-neutral-500/50" />}
+          {day.shift === 1 && <Sunrise size={40} className="text-red-400/50 dark:text-red-400/40" />}
+          {day.shift === 2 && <Sunset size={40} className="text-green-400/50 dark:text-green-400/40" />}
+          {day.shift === 3 && <Moon size={40} className="text-blue-400/50 dark:text-blue-400/40" />}
         </div>
 
         {/* Relief info */}
-        {day.shift !== 0 && (
-          <div className="flex gap-2 mb-3 text-xs">
+        {day.shift !== 0 && (relief.relievesProduction > 0 || relief.relievedByProduction > 0) && (
+          <div className="flex items-center justify-center gap-2 mb-3">
             {relief.relievesProduction > 0 && (
-              <div className="flex-1 rounded-lg bg-neutral-100 dark:bg-neutral-700/60 px-3 py-2">
-                <div className="text-neutral-400 dark:text-neutral-500">Releva a</div>
-                <div className="font-bold text-neutral-700 dark:text-neutral-200">
-                  Producción {relief.relievesProduction}
+              <>
+                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievesProduction]} flex items-center justify-center font-bold text-sm text-white`}>
+                  P{relief.relievesProduction}
                 </div>
-              </div>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-neutral-400 dark:text-neutral-500">releva a</span>
+                  <span className="text-neutral-400 dark:text-neutral-500">→</span>
+                </div>
+              </>
             )}
+            <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[production]} flex items-center justify-center font-bold text-sm text-white ring-2 ring-white dark:ring-neutral-800`}>
+              P{production}
+            </div>
             {relief.relievedByProduction > 0 && (
-              <div className="flex-1 rounded-lg bg-neutral-100 dark:bg-neutral-700/60 px-3 py-2">
-                <div className="text-neutral-400 dark:text-neutral-500">Lo releva</div>
-                <div className="font-bold text-neutral-700 dark:text-neutral-200">
-                  Producción {relief.relievedByProduction}
+              <>
+                <div className="flex flex-col items-center">
+                  <span className="text-[10px] text-neutral-400 dark:text-neutral-500">lo releva</span>
+                  <span className="text-neutral-400 dark:text-neutral-500">→</span>
                 </div>
-              </div>
+                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievedByProduction]} flex items-center justify-center font-bold text-sm text-white`}>
+                  P{relief.relievedByProduction}
+                </div>
+              </>
             )}
           </div>
         )}
@@ -108,7 +123,7 @@ export function DayDetail({ day, production, onClose }: Props) {
             <div
               key={i}
               className={`text-center p-2 rounded-lg ${SHIFT_COLORS.bg[s]} ${
-                i + 1 === production ? 'ring-2 ring-indigo-500' : ''
+                i + 1 === production ? `ring-2 ring-current ${PROD_COLORS.text[i + 1]}` : ''
               }`}
             >
               <div className="text-[10px] text-neutral-500 dark:text-neutral-400">P{i + 1}</div>

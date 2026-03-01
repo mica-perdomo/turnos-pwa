@@ -1,4 +1,4 @@
-import { PRODUCTION_COUNT } from '../../lib/constants'
+import { PRODUCTION_COUNT, PROD_COLORS } from '../../lib/constants'
 
 interface Props {
   production: number
@@ -18,7 +18,7 @@ export function ProductionSelector({ production, onChange }: Props) {
             transition-all duration-150
             ${
               p === production
-                ? 'bg-violet-600 text-white shadow-lg shadow-violet-500/30'
+                ? `${PROD_COLORS.bg[p]} text-white shadow-lg`
                 : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'
             }
           `}

@@ -27,10 +27,8 @@ export function DayCell({ day, selected, onSelect }: Props) {
       `}
     >
       <span className={SHIFT_COLORS.text[day.shift]}>{day.day}</span>
-      {day.shift !== 0 && day.isCurrentMonth && (
-        <span
-          className={`absolute bottom-0.5 h-1.5 w-1.5 rounded-full ${SHIFT_COLORS.dot[day.shift]}`}
-        />
+      {day.isToday && (
+        <span className={`absolute bottom-1 h-1.5 w-1.5 rounded-full ${SHIFT_COLORS.dot[day.shift]}`} />
       )}
     </button>
   )

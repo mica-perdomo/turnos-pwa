@@ -1,7 +1,6 @@
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
-import { NotificationSettings } from './NotificationSettings'
-import { Eye, EyeOff, Minus, Plus } from 'lucide-react'
+import { Eye, EyeOff, Minus, Plus, BarChart3 } from 'lucide-react'
 
 interface Props {
   production: number
@@ -10,15 +9,11 @@ interface Props {
   onThemeChange: (t: 'dark' | 'light' | 'system') => void
   showBanners: boolean
   onShowBannersChange: (v: boolean) => void
+  showSummary: boolean
+  onShowSummaryChange: (v: boolean) => void
   zoom: number
   zoomSteps: number[]
   onZoomChange: (v: number) => void
-  notifications: {
-    enabled: boolean
-    supported: boolean
-    permission: NotificationPermission
-    toggle: () => void
-  }
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -36,10 +31,11 @@ export function SettingsBar({
   onThemeChange,
   showBanners,
   onShowBannersChange,
+  showSummary,
+  onShowSummaryChange,
   zoom,
   zoomSteps,
   onZoomChange,
-  notifications,
 }: Props) {
   return (
     <div className="space-y-4">
@@ -52,7 +48,7 @@ export function SettingsBar({
       {/* Appearance */}
       <div className="space-y-1.5">
         <SectionLabel>Apariencia</SectionLabel>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <ThemeToggle theme={theme} onChange={onThemeChange} />
           <button
             type="button"
@@ -66,6 +62,19 @@ export function SettingsBar({
           >
             {showBanners ? <Eye size={16} /> : <EyeOff size={16} />}
             Hoy/Mañana
+          </button>
+          <button
+            type="button"
+            onClick={() => onShowSummaryChange(!showSummary)}
+            className={`
+              flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+              ${showSummary
+                ? 'bg-indigo-600 text-white'
+                : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
+            `}
+          >
+            <BarChart3 size={16} />
+            Resumen
           </button>
         </div>
       </div>
@@ -100,17 +109,6 @@ export function SettingsBar({
             <Plus size={16} />
           </button>
         </div>
-      </div>
-
-      {/* Notifications */}
-      <div className="space-y-1.5">
-        <SectionLabel>Notificaciones</SectionLabel>
-        <NotificationSettings
-          enabled={notifications.enabled}
-          supported={notifications.supported}
-          permission={notifications.permission}
-          onToggle={notifications.toggle}
-        />
       </div>
     </div>
   )

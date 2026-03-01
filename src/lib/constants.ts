@@ -41,3 +41,18 @@ export const MONTHS_ES = [
 export const DAYS_SHORT = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']
 
 export const PRODUCTION_COUNT = 4
+
+export const PROD_COLORS = {
+  bg: {
+    1: 'bg-violet-600',
+    2: 'bg-amber-500',
+    3: 'bg-teal-500',
+    4: 'bg-pink-500',
+  } as Record<number, string>,
+  text: {
+    1: 'text-violet-600 dark:text-violet-400',
+    2: 'text-amber-500 dark:text-amber-400',
+    3: 'text-teal-500 dark:text-teal-400',
+    4: 'text-pink-500 dark:text-pink-400',
+  } as Record<number, string>,
+}

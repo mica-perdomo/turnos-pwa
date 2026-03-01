@@ -4,7 +4,7 @@ import { useCalendarMonth } from './hooks/useCalendarMonth'
 import { useShiftData, type CalendarDay } from './hooks/useShiftData'
 import { useSwipe } from './hooks/useSwipe'
 import { useTheme } from './hooks/useTheme'
-import { useNotifications } from './hooks/useNotifications'
+
 import { useInstallPrompt } from './hooks/useInstallPrompt'
 import { useZoom } from './hooks/useZoom'
 
@@ -18,6 +18,7 @@ import { SettingsBar } from './components/settings/SettingsBar'
 import { Onboarding } from './components/ui/Onboarding'
 import { InstallGuide } from './components/ui/InstallGuide'
 import { Settings, CalendarDays } from 'lucide-react'
+import { PROD_COLORS } from './lib/constants'
 
 export default function App() {
   const { production, setProduction, needsOnboarding } = useProduction()
@@ -25,7 +26,7 @@ export default function App() {
     useCalendarMonth()
   const { grid, todayInfo, tomorrowInfo, monthSummary } = useShiftData(year, month, production)
   const { theme, setTheme } = useTheme()
-  const notifications = useNotifications()
+
   const installPrompt = useInstallPrompt()
   const zoom = useZoom()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
@@ -58,6 +59,16 @@ export default function App() {
   const handleShowBanners = useCallback((v: boolean) => {
     setShowBanners(v)
     localStorage.setItem('turnos_show_banners', JSON.stringify(v))
+  }, [])
+  const [showSummary, setShowSummary] = useState(() => {
+    try {
+      const v = localStorage.getItem('turnos_show_summary')
+      return v === null ? true : JSON.parse(v)
+    } catch { return true }
+  })
+  const handleShowSummary = useCallback((v: boolean) => {
+    setShowSummary(v)
+    localStorage.setItem('turnos_show_summary', JSON.stringify(v))
   }, [])
 
   const now = new Date()
@@ -92,7 +103,7 @@ export default function App() {
         <div className="flex items-center justify-between pt-[max(env(safe-area-inset-top,0px),24px)] pb-4">
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl font-bold">Turnos</h1>
-            <span className="px-3 py-1 rounded-full bg-violet-600 text-white text-xs">
+            <span className={`px-3 py-1 rounded-full ${PROD_COLORS.bg[production]} text-white text-xs`}>
               Producción {production}
             </span>
           </div>
@@ -116,7 +127,8 @@ export default function App() {
               onThemeChange={setTheme}
               showBanners={showBanners}
               onShowBannersChange={handleShowBanners}
-              notifications={notifications}
+              showSummary={showSummary}
+              onShowSummaryChange={handleShowSummary}
               zoom={zoom.zoom}
               zoomSteps={zoom.steps}
               onZoomChange={zoom.setZoom}
@@ -155,7 +167,7 @@ export default function App() {
         />
 
         {/* Month summary */}
-        <MonthSummary summary={monthSummary} month={month} />
+        {showSummary && <MonthSummary summary={monthSummary} month={month} />}
 
         {/* Upcoming holidays */}
         <div className="mt-4">
