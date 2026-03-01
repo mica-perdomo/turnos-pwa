@@ -14,12 +14,12 @@ export function CalendarLegend({ forShare = false }: LegendProps) {
     <div className="flex items-center gap-3 text-xs flex-wrap py-3 px-1">
       {labels.map((label, i) => (
         <div key={i} className="flex items-center gap-1.5">
-          <span className={`h-2.5 w-2.5 rounded-full ${SHIFT_COLORS.dot[i]}`} />
+          <span className={`h-2.5 w-2.5 rounded-sm ${SHIFT_COLORS.dot[i]}`} />
           <span className="text-neutral-500 dark:text-neutral-400">{label}</span>
         </div>
       ))}
       <div className="flex items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded border-[1.5px] border-amber-400" />
+        <span className="h-2.5 w-2.5 rounded-sm border-[1.5px] border-amber-400" />
         <span className="text-neutral-500 dark:text-neutral-400">Feriado</span>
       </div>
     </div>
