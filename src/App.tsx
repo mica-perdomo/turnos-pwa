@@ -45,13 +45,13 @@ export default function App() {
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
   const [installGuideSkipped, setInstallGuideSkipped] = useState(() => {
-    try { return localStorage.getItem('turnos_install_guide_done') === '1' } catch { return false }
+    try { return sessionStorage.getItem('turnos_install_guide_skip') === '1' } catch { return false }
   })
-  const showInstallGuide = needsOnboarding && !isStandalone && !installGuideSkipped
+  const showInstallGuide = !isStandalone && !installGuideSkipped && (installPrompt.canPrompt || isIOS)
 
   const handleInstallSkip = useCallback(() => {
     setInstallGuideSkipped(true)
-    localStorage.setItem('turnos_install_guide_done', '1')
+    sessionStorage.setItem('turnos_install_guide_skip', '1')
   }, [])
 
   const handleInstallDirect = useCallback(async () => {
