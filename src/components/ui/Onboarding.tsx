@@ -6,7 +6,7 @@ interface Props {
 
 export function Onboarding({ onSelect }: Props) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/95 px-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900 px-6">
       <div className="w-full max-w-xs text-center">
         <h1 className="text-3xl font-bold text-white mb-2">Turnos</h1>
         <p className="text-neutral-400 mb-8">

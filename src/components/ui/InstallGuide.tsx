@@ -9,7 +9,7 @@ interface Props {
 
 export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/95 px-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900 px-6">
       <div className="w-full max-w-xs text-center">
         {/* Icon */}
         <div className="flex justify-center mb-5">
