@@ -1,6 +1,7 @@
+import { useState } from 'react'
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
-import { Eye, EyeOff, BarChart3, RefreshCw } from 'lucide-react'
+import { Eye, EyeOff, BarChart3, RefreshCw, Loader2 } from 'lucide-react'
 import type { ZoomSize } from '../../hooks/useZoom'
 
 interface Props {
@@ -36,6 +37,7 @@ export function SettingsBar({
   zoomSize,
   onZoomSizeChange,
 }: Props) {
+  const [updating, setUpdating] = useState(false)
   const ZOOM_OPTIONS: { value: ZoomSize; label: string }[] = [
     { value: 'S', label: 'Chico' },
     { value: 'M', label: 'Normal' },
@@ -85,18 +87,23 @@ export function SettingsBar({
 
       {/* Update */}
       <div className="space-y-1.5">
-        <SectionLabel>Actualizar</SectionLabel>
+        <SectionLabel>Actualizar · v{__APP_VERSION__}</SectionLabel>
         <button
           type="button"
+          disabled={updating}
           onClick={() => {
+            setUpdating(true)
             navigator.serviceWorker?.getRegistration().then((reg) => {
               reg?.update().then(() => window.location.reload())
             }) ?? window.location.reload()
           }}
-          className="flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all duration-150"
+          className="flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-50 transition-all duration-150"
         >
-          <RefreshCw size={16} />
-          Buscar actualización
+          {updating
+            ? <Loader2 size={16} className="animate-spin" />
+            : <RefreshCw size={16} />
+          }
+          {updating ? 'Actualizando...' : 'Buscar actualización'}
         </button>
       </div>
 
@@ -122,10 +129,6 @@ export function SettingsBar({
         </div>
       </div>
 
-      {/* Version */}
-      <div className="text-center text-[11px] text-neutral-400 dark:text-neutral-500 pt-2">
-        v{__APP_VERSION__}
-      </div>
     </div>
   )
 }
