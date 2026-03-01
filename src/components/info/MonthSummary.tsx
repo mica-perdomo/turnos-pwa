@@ -6,7 +6,7 @@ interface Props {
   month: number
 }
 
-const legendLabels = ['Franco', '1er turno', '2do turno', '3er turno']
+const legendLabels = ['Franco', '1er', '2do', '3er turno']
 const countLabels = ['francos', 'primeros', 'segundos', 'terceros']
 
 export function MonthSummary({ summary, month }: Props) {
