@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { useProduction } from './hooks/useProduction'
 import { useCalendarMonth } from './hooks/useCalendarMonth'
 import { useShiftData, type CalendarDay } from './hooks/useShiftData'
@@ -17,7 +17,7 @@ import { DayDetail } from './components/info/DayDetail'
 import { SettingsBar } from './components/settings/SettingsBar'
 import { Onboarding } from './components/ui/Onboarding'
 import { InstallGuide } from './components/ui/InstallGuide'
-import { Settings, CalendarDays } from 'lucide-react'
+import { Settings, CalendarDays, CheckCircle } from 'lucide-react'
 import { PROD_COLORS } from './lib/constants'
 
 export default function App() {
@@ -30,6 +30,17 @@ export default function App() {
   const installPrompt = useInstallPrompt()
   const { size: zoomSize, setSize: setZoomSize } = useZoom()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
+
+  // Show toast when app was just updated
+  const [updateToast, setUpdateToast] = useState<string | null>(null)
+  useEffect(() => {
+    const prev = localStorage.getItem('turnos_app_version')
+    if (prev && prev !== __APP_VERSION__) {
+      setUpdateToast(__APP_VERSION__)
+      setTimeout(() => setUpdateToast(null), 4000)
+    }
+    localStorage.setItem('turnos_app_version', __APP_VERSION__)
+  }, [])
 
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
@@ -192,6 +203,14 @@ export default function App() {
           production={production}
           onClose={() => setSelectedDay(null)}
         />
+      )}
+
+      {/* Update toast */}
+      {updateToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-3 rounded-xl bg-green-600 text-white text-sm font-medium shadow-lg z-50 animate-[fadeInUp_0.3s_ease-out]">
+          <CheckCircle size={18} />
+          Actualizado a v{updateToast}
+        </div>
       )}
     </div>
   )
