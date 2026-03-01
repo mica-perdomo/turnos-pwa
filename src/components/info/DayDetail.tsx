@@ -1,4 +1,4 @@
-import { X, ArrowRightLeft } from 'lucide-react'
+import { X } from 'lucide-react'
 import type { CalendarDay } from '../../lib/calendar'
 import { getRelief } from '../../lib/relief'
 import { getAllShifts } from '../../lib/shiftCycle'
@@ -61,19 +61,23 @@ export function DayDetail({ day, production, onClose }: Props) {
 
       {/* Relief info */}
       {day.shift !== 0 && (
-        <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 mb-3">
-          <ArrowRightLeft size={14} />
-          <div>
-            {relief.relievesProduction > 0 && (
-              <span>Releva a Prod. {relief.relievesProduction}</span>
-            )}
-            {relief.relievesProduction > 0 && relief.relievedByProduction > 0 && (
-              <span> · </span>
-            )}
-            {relief.relievedByProduction > 0 && (
-              <span>Lo releva Prod. {relief.relievedByProduction}</span>
-            )}
-          </div>
+        <div className="flex gap-2 mb-3 text-xs">
+          {relief.relievesProduction > 0 && (
+            <div className="flex-1 rounded-lg bg-slate-200/60 dark:bg-slate-700/60 px-3 py-2">
+              <div className="text-slate-400 dark:text-slate-500">Releva a</div>
+              <div className="font-bold text-slate-700 dark:text-slate-200">
+                Producción {relief.relievesProduction}
+              </div>
+            </div>
+          )}
+          {relief.relievedByProduction > 0 && (
+            <div className="flex-1 rounded-lg bg-slate-200/60 dark:bg-slate-700/60 px-3 py-2">
+              <div className="text-slate-400 dark:text-slate-500">Lo releva</div>
+              <div className="font-bold text-slate-700 dark:text-slate-200">
+                Producción {relief.relievedByProduction}
+              </div>
+            </div>
+          )}
         </div>
       )}
 
