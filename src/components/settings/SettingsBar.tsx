@@ -1,6 +1,6 @@
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
-import { Eye, EyeOff, BarChart3 } from 'lucide-react'
+import { Eye, EyeOff, BarChart3, RefreshCw } from 'lucide-react'
 import type { ZoomSize } from '../../hooks/useZoom'
 
 interface Props {
@@ -81,6 +81,23 @@ export function SettingsBar({
             Resumen
           </button>
         </div>
+      </div>
+
+      {/* Update */}
+      <div className="space-y-1.5">
+        <SectionLabel>Actualizar</SectionLabel>
+        <button
+          type="button"
+          onClick={() => {
+            navigator.serviceWorker?.getRegistration().then((reg) => {
+              reg?.update().then(() => window.location.reload())
+            }) ?? window.location.reload()
+          }}
+          className="flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600 transition-all duration-150"
+        >
+          <RefreshCw size={16} />
+          Buscar actualización
+        </button>
       </div>
 
       {/* Zoom */}
