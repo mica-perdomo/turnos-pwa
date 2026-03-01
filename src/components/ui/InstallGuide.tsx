@@ -37,7 +37,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
+              className="w-full pt-6 text-xs text-neutral-600 hover:text-neutral-500 transition-colors"
             >
               Usar web
             </button>
@@ -76,7 +76,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
+              className="w-full pt-6 text-xs text-neutral-600 hover:text-neutral-500 transition-colors"
             >
               Usar web
             </button>
@@ -101,7 +101,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
+              className="w-full pt-6 text-xs text-neutral-600 hover:text-neutral-500 transition-colors"
             >
               Usar web
             </button>
