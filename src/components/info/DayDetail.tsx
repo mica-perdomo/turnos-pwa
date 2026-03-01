@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { X, Sunrise, Sunset, Moon, Coffee } from 'lucide-react'
+import { X, Sunrise, Sunset, Moon, BedDouble } from 'lucide-react'
 import type { CalendarDay } from '../../lib/calendar'
 import { getRelief } from '../../lib/relief'
 import { getAllShifts } from '../../lib/shiftCycle'
@@ -80,7 +80,7 @@ export function DayDetail({ day, production, onClose }: Props) {
               </div>
             )}
           </div>
-          {day.shift === 0 && <Coffee size={40} className="text-neutral-400/50 dark:text-neutral-500/50" />}
+          {day.shift === 0 && <BedDouble size={40} className="text-neutral-400/50 dark:text-neutral-500/50" />}
           {day.shift === 1 && <Sunrise size={40} className="text-red-400/50 dark:text-red-400/40" />}
           {day.shift === 2 && <Sunset size={40} className="text-green-400/50 dark:text-green-400/40" />}
           {day.shift === 3 && <Moon size={40} className="text-blue-400/50 dark:text-blue-400/40" />}
