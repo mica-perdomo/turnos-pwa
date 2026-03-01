@@ -2,13 +2,15 @@ import { useState } from 'react'
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
 import { NotificationSettings } from './NotificationSettings'
-import { Bell, Send } from 'lucide-react'
+import { Bell, Send, Eye, EyeOff } from 'lucide-react'
 
 interface Props {
   production: number
   onProductionChange: (p: number) => void
   theme: 'dark' | 'light' | 'system'
   onThemeChange: (t: 'dark' | 'light' | 'system') => void
+  showBanners: boolean
+  onShowBannersChange: (v: boolean) => void
   notifications: {
     enabled: boolean
     supported: boolean
@@ -23,6 +25,8 @@ export function SettingsBar({
   onProductionChange,
   theme,
   onThemeChange,
+  showBanners,
+  onShowBannersChange,
   notifications,
 }: Props) {
   const [preview, setPreview] = useState<{ title: string; body: string } | null>(null)
@@ -38,6 +42,19 @@ export function SettingsBar({
       <ProductionSelector production={production} onChange={onProductionChange} />
       <div className="flex items-center gap-2 flex-wrap">
         <ThemeToggle theme={theme} onChange={onThemeChange} />
+        <button
+          type="button"
+          onClick={() => onShowBannersChange(!showBanners)}
+          className={`
+            flex items-center gap-2 px-3 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+            ${showBanners
+              ? 'bg-indigo-600 text-white'
+              : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600'}
+          `}
+        >
+          {showBanners ? <Eye size={16} /> : <EyeOff size={16} />}
+          Hoy/Mañana
+        </button>
         <NotificationSettings
           enabled={notifications.enabled}
           supported={notifications.supported}

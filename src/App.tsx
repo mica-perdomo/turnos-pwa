@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useProduction } from './hooks/useProduction'
 import { useCalendarMonth } from './hooks/useCalendarMonth'
 import { useShiftData, type CalendarDay } from './hooks/useShiftData'
@@ -29,6 +29,16 @@ export default function App() {
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
   const [showSettings, setShowSettings] = useState(false)
   const [selectedDay, setSelectedDay] = useState<CalendarDay | null>(null)
+  const [showBanners, setShowBanners] = useState(() => {
+    try {
+      const v = localStorage.getItem('turnos_show_banners')
+      return v === null ? true : JSON.parse(v)
+    } catch { return true }
+  })
+  const handleShowBanners = useCallback((v: boolean) => {
+    setShowBanners(v)
+    localStorage.setItem('turnos_show_banners', JSON.stringify(v))
+  }, [])
 
   const now = new Date()
   const isCurrentMonth = year === now.getFullYear() && month === now.getMonth()
@@ -66,6 +76,8 @@ export default function App() {
               onProductionChange={setProduction}
               theme={theme}
               onThemeChange={setTheme}
+              showBanners={showBanners}
+              onShowBannersChange={handleShowBanners}
               notifications={notifications}
             />
           </div>
@@ -82,13 +94,15 @@ export default function App() {
         )}
 
         {/* Today + Tomorrow banners */}
-        <div className="mb-4">
-          <TodayBanner
-            today={todayInfo}
-            tomorrow={tomorrowInfo}
-            production={production}
-          />
-        </div>
+        {showBanners && (
+          <div className="mb-4">
+            <TodayBanner
+              today={todayInfo}
+              tomorrow={tomorrowInfo}
+              production={production}
+            />
+          </div>
+        )}
 
         {/* Month navigation */}
         <MonthNavigator
