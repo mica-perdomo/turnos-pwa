@@ -19,6 +19,12 @@ export const SHIFT_COLORS = {
     2: 'bg-green-500/20 dark:bg-green-500/20',
     3: 'bg-blue-500/20 dark:bg-blue-500/20',
   } as Record<number, string>,
+  bgToday: {
+    0: 'bg-zinc-400/30 dark:bg-zinc-500/40',
+    1: 'bg-red-500/35 dark:bg-red-500/35',
+    2: 'bg-green-500/35 dark:bg-green-500/35',
+    3: 'bg-blue-500/35 dark:bg-blue-500/35',
+  } as Record<number, string>,
   text: {
     0: 'text-zinc-500 dark:text-zinc-300',
     1: 'text-red-500 dark:text-red-400',
