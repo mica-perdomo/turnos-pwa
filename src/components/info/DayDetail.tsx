@@ -103,7 +103,7 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
         </div>
 
         {/* Current production shift */}
-        <div className={`flex items-center rounded-xl p-4 mb-4 ${SHIFT_COLORS.bg[day.shift]}`}>
+        <div className={`flex items-center rounded-xl p-4 mb-4 ${SHIFT_COLORS.bg[day.shift]} ${day.holidays.length > 0 ? 'border-2 border-amber-400' : ''}`}>
           <div className="flex-1">
             <span className={`inline-block px-2.5 py-0.5 rounded-full ${PROD_COLORS.bg[production]} text-white text-[11px] font-medium mb-2`}>
               Producción {production}
