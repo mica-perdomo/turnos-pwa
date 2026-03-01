@@ -23,6 +23,10 @@ export function MonthSummary({ summary, month }: Props) {
             </span>
           </div>
         ))}
+        <div className="flex items-center gap-1.5">
+          <span className="h-2 w-2 rounded border-[1.5px] border-amber-400" />
+          <span className="text-slate-600 dark:text-slate-300">feriado</span>
+        </div>
       </div>
     </div>
   )
