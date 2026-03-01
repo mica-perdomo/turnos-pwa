@@ -34,7 +34,7 @@ export default function App() {
     >
       <div className="mx-auto max-w-md px-3 pb-8">
         {/* Header */}
-        <div className="flex items-center justify-between pt-4 pb-2">
+        <div className="flex items-center justify-between pt-[env(safe-area-inset-top,16px)] pb-2">
           <h1 className="text-xl font-bold">Turnos</h1>
           <button
             type="button"
