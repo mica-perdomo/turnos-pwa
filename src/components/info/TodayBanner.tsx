@@ -11,7 +11,7 @@ interface Props {
 export function TodayBanner({ today, tomorrow, production }: Props) {
   return (
     <div
-      className="rounded-xl border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700"
+      className="rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 divide-y divide-slate-200 dark:divide-slate-700"
     >
       {/* Today — single row */}
       <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[today.shift]}`}>
