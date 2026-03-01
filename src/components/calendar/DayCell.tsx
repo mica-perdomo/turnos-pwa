@@ -31,7 +31,7 @@ export function DayCell({ day, selected, onSelect, hasNote }: Props) {
         <span className="absolute top-0.5 right-0.5 h-2 w-2 rounded-full bg-neutral-400 dark:bg-neutral-500" />
       )}
       {day.isToday && (
-        <span className={`absolute bottom-1 h-1.5 w-1.5 rounded-full ${SHIFT_COLORS.dot[day.shift]}`} />
+        <span className="absolute bottom-1 h-1.5 w-1.5 rounded-full bg-indigo-500/50 dark:bg-indigo-400/50" />
       )}
     </button>
   )
