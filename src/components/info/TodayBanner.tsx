@@ -27,9 +27,12 @@ function Row({
           {SHIFT_LABELS[day.shift]}
         </span>
         {SHIFT_TIMES[day.shift] && (
-          <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
-            {SHIFT_TIMES[day.shift]}
-          </span>
+          <>
+            <span className="text-neutral-400 dark:text-neutral-500 hide-zoom-l">·</span>
+            <span className="text-xs font-semibold text-neutral-500 dark:text-neutral-400">
+              {SHIFT_TIMES[day.shift]}
+            </span>
+          </>
         )}
       </div>
       <div className="ml-auto flex items-center gap-1.5 shrink-0">

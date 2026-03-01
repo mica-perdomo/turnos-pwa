@@ -21,7 +21,11 @@ export function useZoom() {
 
   useEffect(() => {
     document.documentElement.style.fontSize = `${FONT_SIZES[size]}px`
-    return () => { document.documentElement.style.fontSize = '' }
+    document.documentElement.dataset.zoom = size
+    return () => {
+      document.documentElement.style.fontSize = ''
+      delete document.documentElement.dataset.zoom
+    }
   }, [size])
 
   return { size, setSize } as const

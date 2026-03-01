@@ -63,6 +63,11 @@ body {
   animation: slide-up 0.25s ease-out;
 }
 
+/* Hide elements on large zoom */
+html[data-zoom="L"] .hide-zoom-l {
+  display: none;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
