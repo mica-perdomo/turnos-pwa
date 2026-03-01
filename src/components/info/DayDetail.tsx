@@ -24,10 +24,13 @@ export function DayDetail({ day, production, onClose, note, onNoteChange }: Prop
   const allShifts = getAllShifts(day.date)
   const dow = day.date.getDay()
 
-  // Lock body scroll while modal is open
+  // Lock body scroll while modal is open, reset scroll on close
   useEffect(() => {
     document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+      window.scrollTo(0, 0)
+    }
   }, [])
 
   // Close on escape
