@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
-import { Eye, EyeOff, BarChart3, RefreshCw, Loader2 } from 'lucide-react'
+import { Eye, EyeOff, BarChart3, CalendarHeart, RefreshCw, Loader2 } from 'lucide-react'
 import type { ZoomSize } from '../../hooks/useZoom'
 
 interface Props {
@@ -13,6 +13,8 @@ interface Props {
   onShowBannersChange: (v: boolean) => void
   showSummary: boolean
   onShowSummaryChange: (v: boolean) => void
+  showHolidays: boolean
+  onShowHolidaysChange: (v: boolean) => void
   zoomSize: ZoomSize
   onZoomSizeChange: (v: ZoomSize) => void
 }
@@ -34,6 +36,8 @@ export function SettingsBar({
   onShowBannersChange,
   showSummary,
   onShowSummaryChange,
+  showHolidays,
+  onShowHolidaysChange,
   zoomSize,
   onZoomSizeChange,
 }: Props) {
@@ -81,6 +85,19 @@ export function SettingsBar({
           >
             <BarChart3 size={16} />
             Resumen
+          </button>
+          <button
+            type="button"
+            onClick={() => onShowHolidaysChange(!showHolidays)}
+            className={`
+              flex items-center gap-2 px-3 min-h-11 rounded-lg text-sm font-medium transition-all duration-150
+              ${showHolidays
+                ? 'bg-indigo-600 text-white'
+                : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
+            `}
+          >
+            <CalendarHeart size={16} />
+            Feriados
           </button>
         </div>
       </div>

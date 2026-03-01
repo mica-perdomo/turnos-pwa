@@ -74,12 +74,22 @@ export default function App() {
   const [showSummary, setShowSummary] = useState(() => {
     try {
       const v = localStorage.getItem('turnos_show_summary')
-      return v === null ? true : JSON.parse(v)
-    } catch { return true }
+      return v === null ? false : JSON.parse(v)
+    } catch { return false }
   })
   const handleShowSummary = useCallback((v: boolean) => {
     setShowSummary(v)
     localStorage.setItem('turnos_show_summary', JSON.stringify(v))
+  }, [])
+  const [showHolidays, setShowHolidays] = useState(() => {
+    try {
+      const v = localStorage.getItem('turnos_show_holidays')
+      return v === null ? true : JSON.parse(v)
+    } catch { return true }
+  })
+  const handleShowHolidays = useCallback((v: boolean) => {
+    setShowHolidays(v)
+    localStorage.setItem('turnos_show_holidays', JSON.stringify(v))
   }, [])
 
   const now = new Date()
@@ -136,6 +146,8 @@ export default function App() {
               onShowBannersChange={handleShowBanners}
               showSummary={showSummary}
               onShowSummaryChange={handleShowSummary}
+              showHolidays={showHolidays}
+              onShowHolidaysChange={handleShowHolidays}
               zoomSize={zoomSize}
               onZoomSizeChange={setZoomSize}
             />
@@ -179,9 +191,11 @@ export default function App() {
         {showSummary && <MonthSummary summary={monthSummary} month={month} />}
 
         {/* Upcoming holidays */}
-        <div className="mt-4">
-          <UpcomingHolidays production={production} />
-        </div>
+        {showHolidays && (
+          <div className="mt-4">
+            <UpcomingHolidays production={production} />
+          </div>
+        )}
       </div>
 
       {/* Floating "Hoy" button */}
