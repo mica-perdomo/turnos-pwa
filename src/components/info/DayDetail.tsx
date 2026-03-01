@@ -115,10 +115,10 @@ export function DayDetail({ day, production, onClose }: Props) {
         {/* Relief info */}
         {day.shift !== 0 && (relief.relievesProduction > 0 || relief.relievedByProduction > 0) && (
           <div className="flex items-center justify-center gap-2 my-10">
-            {relief.relievesProduction > 0 && (
+            {relief.relievedByProduction > 0 && (
               <>
-                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievesProduction]} flex items-center justify-center font-bold text-sm text-white`}>
-                  P{relief.relievesProduction}
+                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievedByProduction]} flex items-center justify-center font-bold text-sm text-white`}>
+                  P{relief.relievedByProduction}
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="text-[10px] text-neutral-400 dark:text-neutral-500">releva a</span>
@@ -129,14 +129,14 @@ export function DayDetail({ day, production, onClose }: Props) {
             <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[production]} flex items-center justify-center font-bold text-sm text-white ring-2 ring-white dark:ring-neutral-800`}>
               P{production}
             </div>
-            {relief.relievedByProduction > 0 && (
+            {relief.relievesProduction > 0 && (
               <>
                 <div className="flex flex-col items-center">
-                  <span className="text-[10px] text-neutral-400 dark:text-neutral-500">lo releva</span>
+                  <span className="text-[10px] text-neutral-400 dark:text-neutral-500">releva a</span>
                   <span className="text-neutral-400 dark:text-neutral-500">→</span>
                 </div>
-                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievedByProduction]} flex items-center justify-center font-bold text-sm text-white`}>
-                  P{relief.relievedByProduction}
+                <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievesProduction]} flex items-center justify-center font-bold text-sm text-white`}>
+                  P{relief.relievesProduction}
                 </div>
               </>
             )}
