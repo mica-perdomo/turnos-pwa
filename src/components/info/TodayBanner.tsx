@@ -22,11 +22,11 @@ function Row({
   showRelief: boolean
 }) {
   return (
-    <div className={`flex items-center gap-3 px-3 py-2.5 ${SHIFT_COLORS.bg[day.shift]}`}>
+    <div className={`flex items-center gap-2 px-3 py-2.5 ${day.shift === 1 ? 'bg-red-500/10 dark:bg-red-500/10' : SHIFT_COLORS.bg[day.shift]}`}>
       <Icon size={16} className={`${SHIFT_COLORS.text[day.shift]} shrink-0`} />
-      <span className="w-14 text-xs text-neutral-500 dark:text-neutral-400 uppercase leading-none">{label}</span>
-      <div className="flex items-baseline gap-2">
-        <span className="font-bold text-neutral-500 dark:text-neutral-400">
+      <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase leading-none shrink-0">{label}</span>
+      <div className="flex items-baseline gap-1.5 min-w-0 whitespace-nowrap">
+        <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">
           {SHIFT_LABELS[day.shift]}
         </span>
         {SHIFT_TIMES[day.shift] && (

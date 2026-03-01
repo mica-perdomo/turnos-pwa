@@ -11,7 +11,7 @@ import { useZoom } from './hooks/useZoom'
 import { MonthNavigator } from './components/calendar/MonthNavigator'
 import { CalendarGrid } from './components/calendar/CalendarGrid'
 import { TodayBanner } from './components/info/TodayBanner'
-import { MonthSummary } from './components/info/MonthSummary'
+import { CalendarLegend, MonthSummary } from './components/info/MonthSummary'
 import { UpcomingHolidays } from './components/info/UpcomingHolidays'
 import { DayDetail } from './components/info/DayDetail'
 import { SettingsBar } from './components/settings/SettingsBar'
@@ -161,7 +161,10 @@ export default function App() {
           selectedDay={selectedDay}
         />
 
-        {/* Month summary */}
+        {/* Calendar legend (always visible) */}
+        <CalendarLegend />
+
+        {/* Month summary (optional) */}
         {showSummary && <MonthSummary summary={monthSummary} month={month} />}
 
         {/* Upcoming holidays */}

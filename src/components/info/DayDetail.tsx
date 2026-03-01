@@ -42,7 +42,7 @@ export function DayDetail({ day, production, onClose }: Props) {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Handle */}
-        <div className="flex justify-center mb-3">
+        <div className="flex justify-center mb-4">
           <div className="w-10 h-1 rounded-full bg-neutral-300 dark:bg-neutral-600" />
         </div>
 
@@ -66,7 +66,7 @@ export function DayDetail({ day, production, onClose }: Props) {
         </div>
 
         {/* Current production shift */}
-        <div className={`flex items-center rounded-xl p-4 mb-3 ${SHIFT_COLORS.bg[day.shift]}`}>
+        <div className={`flex items-center rounded-xl p-4 mb-4 ${SHIFT_COLORS.bg[day.shift]}`}>
           <div className="flex-1">
             <span className={`inline-block px-2.5 py-0.5 rounded-full ${PROD_COLORS.bg[production]} text-white text-[11px] font-medium mb-2`}>
               Producción {production}
@@ -88,7 +88,7 @@ export function DayDetail({ day, production, onClose }: Props) {
 
         {/* Relief info */}
         {day.shift !== 0 && (relief.relievesProduction > 0 || relief.relievedByProduction > 0) && (
-          <div className="flex items-center justify-center gap-2 mb-3">
+          <div className="flex items-center justify-center gap-2 my-10">
             {relief.relievesProduction > 0 && (
               <>
                 <div className={`w-10 h-10 rounded-full ${PROD_COLORS.bg[relief.relievesProduction]} flex items-center justify-center font-bold text-sm text-white`}>
@@ -136,7 +136,7 @@ export function DayDetail({ day, production, onClose }: Props) {
 
         {/* Holidays */}
         {day.holidays.length > 0 && (
-          <div className="mt-3 pt-2 border-t border-neutral-200 dark:border-neutral-700">
+          <div className="mt-4 pt-3 border-t border-neutral-200 dark:border-neutral-700">
             {day.holidays.map((h, i) => (
               <div key={i} className="text-sm text-amber-500 dark:text-amber-400">
                 {h.name}
