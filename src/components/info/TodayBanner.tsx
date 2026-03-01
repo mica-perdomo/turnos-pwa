@@ -20,7 +20,7 @@ function Row({
   showRelief: boolean
 }) {
   return (
-    <div className={`flex items-baseline gap-2 px-3 py-2.5 ${day.shift === 1 ? 'bg-red-500/10 dark:bg-red-500/10' : SHIFT_COLORS.bg[day.shift]}`}>
+    <div className={`flex items-baseline gap-2 px-3 py-2.5 ${day.shift === 1 ? 'bg-red-500/35 dark:bg-red-500/45' : SHIFT_COLORS.bg[day.shift]}`}>
       <span className="text-xs text-neutral-500 dark:text-neutral-400 uppercase shrink-0">{label}</span>
       <div className="flex items-baseline gap-1.5 min-w-0 whitespace-nowrap">
         <span className="text-sm font-bold text-neutral-500 dark:text-neutral-400">

@@ -225,7 +225,7 @@ export default function App() {
         )}
 
         {/* Shareable calendar block */}
-        <div ref={calendarRef}>
+        <div ref={calendarRef} className={capturingShare ? 'px-6' : ''}>
           {/* Month navigation */}
           <MonthNavigator
             year={year}
