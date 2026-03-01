@@ -103,7 +103,6 @@ export default function App() {
         {/* Calendar */}
         <CalendarGrid
           grid={grid}
-          production={production}
           slideDir={slideDir}
           onSlideEnd={clearSlide}
           onDaySelect={setSelectedDay}

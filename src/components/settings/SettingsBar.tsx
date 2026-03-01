@@ -12,6 +12,7 @@ interface Props {
     supported: boolean
     permission: NotificationPermission
     toggle: () => void
+    sendTest: (production: number) => void
   }
 }
 
@@ -32,6 +33,7 @@ export function SettingsBar({
           supported={notifications.supported}
           permission={notifications.permission}
           onToggle={notifications.toggle}
+          onTest={() => notifications.sendTest(production)}
         />
       </div>
     </div>

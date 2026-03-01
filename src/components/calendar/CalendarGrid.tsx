@@ -6,7 +6,6 @@ import { DayCell } from './DayCell'
 
 interface Props {
   grid: CalendarDay[][]
-  production: number
   slideDir: SlideDirection
   onSlideEnd: () => void
   onDaySelect: (day: CalendarDay | null) => void
