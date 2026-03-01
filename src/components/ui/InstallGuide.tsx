@@ -39,7 +39,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
               onClick={onSkip}
               className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
             >
-              Ahora no, seguir en el navegador
+              Usar web
             </button>
           </div>
         ) : isIOS ? (
@@ -78,7 +78,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
               onClick={onSkip}
               className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
             >
-              Ahora no, seguir en el navegador
+              Usar web
             </button>
           </div>
         ) : (
@@ -103,7 +103,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
               onClick={onSkip}
               className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
             >
-              Seguir sin instalar
+              Usar web
             </button>
           </div>
         )}
