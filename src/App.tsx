@@ -51,10 +51,10 @@ export default function App() {
           <button
             type="button"
             onClick={() => setShowSettings(!showSettings)}
-            className="p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 min-w-[44px] min-h-[44px] flex items-center justify-center transition-colors"
+            className="w-12 h-12 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 active:bg-slate-400 dark:active:bg-slate-500 flex items-center justify-center transition-colors"
             aria-label="Configuración"
           >
-            <Settings size={20} />
+            <Settings size={22} />
           </button>
         </div>
 
