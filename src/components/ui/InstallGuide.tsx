@@ -101,10 +101,9 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
             <button
               type="button"
               onClick={onSkip}
-              className="w-full py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-white text-sm font-semibold hover:bg-neutral-700 transition-colors flex items-center justify-center gap-2 min-h-11"
+              className="w-full py-3 text-sm text-neutral-400 hover:text-neutral-300 transition-colors"
             >
-              Continuar
-              <ArrowRight size={16} />
+              Seguir sin instalar
             </button>
           </div>
         )}
