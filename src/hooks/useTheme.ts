@@ -13,7 +13,7 @@ function applyTheme(theme: Theme) {
 }
 
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>(() => getItem<Theme>(KEY, 'dark'))
+  const [theme, setThemeState] = useState<Theme>(() => getItem<Theme>(KEY, 'system'))
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t)
