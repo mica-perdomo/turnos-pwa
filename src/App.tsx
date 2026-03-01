@@ -117,15 +117,20 @@ export default function App() {
 
   const calendarRef = useRef<HTMLDivElement>(null)
   const [sharing, setSharing] = useState(false)
+  const [capturingShare, setCapturingShare] = useState(false)
 
   const handleShareCalendar = useCallback(async () => {
     if (!calendarRef.current || sharing) return
     setSharing(true)
+    setCapturingShare(true)
+    // Wait one frame so the legend re-renders with time ranges
+    await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))
     try {
       const dataUrl = await toPng(calendarRef.current, {
         backgroundColor: document.documentElement.classList.contains('dark') ? '#171717' : '#ffffff',
         pixelRatio: 2,
       })
+      setCapturingShare(false)
       const res = await fetch(dataUrl)
       const blob = await res.blob()
       const file = new File([blob], `turnos-${MONTHS_ES[month]}-${year}.png`, { type: 'image/png' })
@@ -139,6 +144,7 @@ export default function App() {
         a.click()
       }
     } catch (e) {
+      setCapturingShare(false)
       if ((e as DOMException)?.name !== 'AbortError') console.error('Share failed:', e)
     } finally {
       setSharing(false)
@@ -241,7 +247,7 @@ export default function App() {
           />
 
           {/* Calendar legend (always visible) */}
-          <CalendarLegend />
+          <CalendarLegend forShare={capturingShare} />
         </div>
 
         {/* Share calendar button */}

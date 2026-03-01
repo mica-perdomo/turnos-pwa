@@ -68,7 +68,7 @@ export function CalendarGrid({ grid, slideDir, onSlideEnd, onDaySelect, selected
             <div
               key={rowIdx}
               className={`grid grid-cols-7 gap-1 ${
-                isCurrentWeek ? 'bg-indigo-500/5 dark:bg-indigo-400/5 rounded-lg' : ''
+                isCurrentWeek ? '-mx-2 px-2 py-0.5 bg-indigo-500/10 dark:bg-indigo-400/10 rounded-xl' : ''
               }`}
             >
               {row.map((day) => (

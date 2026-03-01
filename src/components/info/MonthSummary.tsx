@@ -2,11 +2,17 @@ import { SHIFT_COLORS, MONTHS_ES } from '../../lib/constants'
 import type { MonthSummary as MonthSummaryType } from '../../hooks/useShiftData'
 
 const legendLabels = ['Franco', '1er', '2do', '3er turno']
+const shareLegendLabels = ['Franco', '06:00 a 14:00', '14:00 a 22:00', '22:00 a 06:00']
 
-export function CalendarLegend() {
+interface LegendProps {
+  forShare?: boolean
+}
+
+export function CalendarLegend({ forShare = false }: LegendProps) {
+  const labels = forShare ? shareLegendLabels : legendLabels
   return (
     <div className="flex items-center gap-3 text-xs flex-wrap py-3 px-1">
-      {legendLabels.map((label, i) => (
+      {labels.map((label, i) => (
         <div key={i} className="flex items-center gap-1.5">
           <span className={`h-2.5 w-2.5 rounded-full ${SHIFT_COLORS.dot[i]}`} />
           <span className="text-neutral-500 dark:text-neutral-400">{label}</span>
