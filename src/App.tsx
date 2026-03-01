@@ -117,7 +117,7 @@ export default function App() {
         {...swipeHandlers}
       >
         {/* Header */}
-        <div className="flex items-center justify-between pt-[max(env(safe-area-inset-top,0px),24px)] pb-4">
+        <div className="flex items-center justify-between pt-[max(env(safe-area-inset-top,0px),40px)] pb-4">
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl font-bold">Turnos</h1>
             <span className={`px-3 py-1 rounded-full ${PROD_COLORS.bg[production]} text-white text-xs`}>
