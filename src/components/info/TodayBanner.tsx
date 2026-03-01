@@ -61,7 +61,7 @@ function Row({
 
 export function TodayBanner({ today, tomorrow, production }: Props) {
   return (
-    <div className="rounded-xl overflow-hidden border border-neutral-400 dark:border-neutral-500 divide-y divide-neutral-300 dark:divide-neutral-600">
+    <div className="rounded-xl overflow-hidden border border-neutral-200 dark:border-neutral-700 divide-y divide-neutral-200 dark:divide-neutral-700">
       <Row label="Hoy" day={today} production={production} showRelief={true} />
       <Row label="Mañana" day={tomorrow} production={production} showRelief={true} />
     </div>
