@@ -28,7 +28,7 @@ export default function App() {
   const { theme, setTheme } = useTheme()
 
   const installPrompt = useInstallPrompt()
-  const zoom = useZoom()
+  const { size: zoomSize, setSize: setZoomSize } = useZoom()
   const swipeHandlers = useSwipe(nextMonth, prevMonth)
 
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true
@@ -92,11 +92,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white dark:bg-neutral-900 transition-colors overflow-x-hidden">
       <div
-        className="mx-auto max-w-md px-4 pb-8 origin-top"
-        style={{
-          zoom: zoom.zoom / 100,
-          width: `${10000 / zoom.zoom}%`,
-        }}
+        className="mx-auto max-w-md px-4 pb-8"
         {...swipeHandlers}
       >
         {/* Header */}
@@ -129,9 +125,8 @@ export default function App() {
               onShowBannersChange={handleShowBanners}
               showSummary={showSummary}
               onShowSummaryChange={handleShowSummary}
-              zoom={zoom.zoom}
-              zoomSteps={zoom.steps}
-              onZoomChange={zoom.setZoom}
+              zoomSize={zoomSize}
+              onZoomSizeChange={setZoomSize}
             />
           </div>
         )}

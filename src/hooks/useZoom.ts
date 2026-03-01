@@ -2,21 +2,27 @@ import { useState, useEffect, useCallback } from 'react'
 import { getItem, setItem } from '../lib/storage'
 
 const KEY = 'zoom'
-const STEPS = [85, 100, 115, 130]
-const DEFAULT = 100
+
+export type ZoomSize = 'S' | 'M' | 'L'
+
+const FONT_SIZES: Record<ZoomSize, number> = {
+  S: 14,
+  M: 16,
+  L: 18,
+}
 
 export function useZoom() {
-  const [zoom, setZoomState] = useState<number>(() => getItem<number>(KEY, DEFAULT))
+  const [size, setSizeState] = useState<ZoomSize>(() => getItem<ZoomSize>(KEY, 'M'))
 
-  const setZoom = useCallback((value: number) => {
-    setZoomState(value)
+  const setSize = useCallback((value: ZoomSize) => {
+    setSizeState(value)
     setItem(KEY, value)
   }, [])
 
-  // Clean up any leftover font-size from previous implementation
   useEffect(() => {
-    document.documentElement.style.fontSize = ''
-  }, [])
+    document.documentElement.style.fontSize = `${FONT_SIZES[size]}px`
+    return () => { document.documentElement.style.fontSize = '' }
+  }, [size])
 
-  return { zoom, setZoom, steps: STEPS } as const
+  return { size, setSize } as const
 }

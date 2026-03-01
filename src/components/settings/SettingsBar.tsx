@@ -1,6 +1,7 @@
 import { ProductionSelector } from './ProductionSelector'
 import { ThemeToggle } from './ThemeToggle'
-import { Eye, EyeOff, Minus, Plus, BarChart3 } from 'lucide-react'
+import { Eye, EyeOff, BarChart3 } from 'lucide-react'
+import type { ZoomSize } from '../../hooks/useZoom'
 
 interface Props {
   production: number
@@ -11,9 +12,8 @@ interface Props {
   onShowBannersChange: (v: boolean) => void
   showSummary: boolean
   onShowSummaryChange: (v: boolean) => void
-  zoom: number
-  zoomSteps: number[]
-  onZoomChange: (v: number) => void
+  zoomSize: ZoomSize
+  onZoomSizeChange: (v: ZoomSize) => void
 }
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -33,10 +33,14 @@ export function SettingsBar({
   onShowBannersChange,
   showSummary,
   onShowSummaryChange,
-  zoom,
-  zoomSteps,
-  onZoomChange,
+  zoomSize,
+  onZoomSizeChange,
 }: Props) {
+  const ZOOM_OPTIONS: { value: ZoomSize; label: string }[] = [
+    { value: 'S', label: 'Chico' },
+    { value: 'M', label: 'Normal' },
+    { value: 'L', label: 'Grande' },
+  ]
   return (
     <div className="space-y-4">
       {/* Production */}
@@ -82,32 +86,22 @@ export function SettingsBar({
       {/* Zoom */}
       <div className="space-y-1.5">
         <SectionLabel>Tamaño</SectionLabel>
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            disabled={zoom <= zoomSteps[0]}
-            onClick={() => {
-              const idx = zoomSteps.indexOf(zoom)
-              if (idx > 0) onZoomChange(zoomSteps[idx - 1])
-            }}
-            className="w-10 h-10 rounded-lg bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-30 flex items-center justify-center transition-colors"
-            aria-label="Reducir tamaño"
-          >
-            <Minus size={16} />
-          </button>
-          <span className="text-sm font-medium w-12 text-center">{zoom}%</span>
-          <button
-            type="button"
-            disabled={zoom >= zoomSteps[zoomSteps.length - 1]}
-            onClick={() => {
-              const idx = zoomSteps.indexOf(zoom)
-              if (idx < zoomSteps.length - 1) onZoomChange(zoomSteps[idx + 1])
-            }}
-            className="w-10 h-10 rounded-lg bg-neutral-200 dark:bg-neutral-700 hover:bg-neutral-300 dark:hover:bg-neutral-600 disabled:opacity-30 flex items-center justify-center transition-colors"
-            aria-label="Aumentar tamaño"
-          >
-            <Plus size={16} />
-          </button>
+        <div className="flex gap-2">
+          {ZOOM_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              onClick={() => onZoomSizeChange(opt.value)}
+              className={`
+                flex-1 min-h-[44px] rounded-lg text-sm font-medium transition-all duration-150
+                ${zoomSize === opt.value
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-neutral-200 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-300 dark:hover:bg-neutral-600'}
+              `}
+            >
+              {opt.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
