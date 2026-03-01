@@ -14,7 +14,7 @@ export function InstallGuide({ canPrompt, isIOS, onInstall, onSkip }: Props) {
         {/* Icon */}
         <div className="flex justify-center mb-5">
           <div className="w-20 h-20 rounded-2xl bg-neutral-800 border-2 border-neutral-700 flex items-center justify-center">
-            <img src="/icons/icon-192.png" alt="Turnos" className="w-14 h-14 rounded-xl" />
+            <img src={`${import.meta.env.BASE_URL}icons/icon-192.png`} alt="Turnos" className="w-14 h-14 rounded-xl" />
           </div>
         </div>
 
