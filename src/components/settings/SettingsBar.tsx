@@ -7,8 +7,8 @@ import type { ZoomSize } from '../../hooks/useZoom'
 interface Props {
   production: number
   onProductionChange: (p: number) => void
-  theme: 'dark' | 'light' | 'system'
-  onThemeChange: (t: 'dark' | 'light' | 'system') => void
+  theme: 'dark' | 'light'
+  onThemeChange: (t: 'dark' | 'light') => void
   showBanners: boolean
   onShowBannersChange: (v: boolean) => void
   showSummary: boolean

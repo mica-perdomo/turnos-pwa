@@ -5,17 +5,24 @@ type Theme = 'dark' | 'light' | 'system'
 
 const KEY = 'theme'
 
+function resolveTheme(theme: Theme): 'dark' | 'light' {
+  if (theme === 'system') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  }
+  return theme
+}
+
 function applyTheme(theme: Theme) {
-  const isDark =
-    theme === 'dark' ||
-    (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-  document.documentElement.classList.toggle('dark', isDark)
+  document.documentElement.classList.toggle('dark', resolveTheme(theme) === 'dark')
 }
 
 export function useTheme() {
-  const [theme, setThemeState] = useState<Theme>(() => getItem<Theme>(KEY, 'system'))
+  const [theme, setThemeState] = useState<'dark' | 'light'>(() => {
+    const stored = getItem<Theme>(KEY, 'system')
+    return resolveTheme(stored)
+  })
 
-  const setTheme = useCallback((t: Theme) => {
+  const setTheme = useCallback((t: 'dark' | 'light') => {
     setThemeState(t)
     setItem(KEY, t)
     applyTheme(t)
@@ -23,13 +30,6 @@ export function useTheme() {
 
   useEffect(() => {
     applyTheme(theme)
-
-    if (theme === 'system') {
-      const mq = window.matchMedia('(prefers-color-scheme: dark)')
-      const handler = () => applyTheme('system')
-      mq.addEventListener('change', handler)
-      return () => mq.removeEventListener('change', handler)
-    }
   }, [theme])
 
   return { theme, setTheme } as const
