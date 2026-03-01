@@ -121,6 +121,11 @@ export function SettingsBar({
           ))}
         </div>
       </div>
+
+      {/* Version */}
+      <div className="text-center text-[11px] text-neutral-400 dark:text-neutral-500 pt-2">
+        v{__APP_VERSION__}
+      </div>
     </div>
   )
 }
